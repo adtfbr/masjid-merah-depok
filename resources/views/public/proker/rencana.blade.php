@@ -24,7 +24,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card card-modern h-100">
                         @if($kegiatan->foto->count() > 0)
-                            <img src="{{ Storage::url($kegiatan->foto->first()->foto_path) }}" 
+                            <img src="{{ asset('storage/' . $kegiatan->foto->first()->foto) }}" 
                                  class="card-img-top" 
                                  alt="{{ $kegiatan->nama_kegiatan }}"
                                  style="height: 200px; object-fit: cover;">

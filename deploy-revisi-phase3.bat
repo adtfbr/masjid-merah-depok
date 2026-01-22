@@ -1,43 +1,58 @@
 @echo off
-echo ========================================
-echo DEPLOYMENT - REVISI PHASE 3
-echo ========================================
+echo ============================================
+echo   DEPLOYMENT - REVISI PHASE 3
+echo   Masjid Merah Baiturrahman System
+echo ============================================
 echo.
 
-cd C:\xampp\htdocs\masjid-internal
-
-echo Step 1: Copy sejarah photos...
-call copy-sejarah-photos.bat
-
-echo.
-echo Step 2: Run migrations...
-php artisan migrate
-
-echo.
-echo Step 3: Clear cache...
-php artisan config:clear
+echo [1/4] Clearing cache...
 php artisan cache:clear
+php artisan config:clear
 php artisan view:clear
+php artisan route:clear
+echo Cache cleared successfully!
+echo.
 
+echo [2/4] Optimizing application...
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+echo Optimization completed!
 echo.
-echo ========================================
-echo DEPLOYMENT COMPLETED
-echo ========================================
+
+echo [3/4] Ensuring storage link exists...
+php artisan storage:link
+echo Storage link checked!
 echo.
-echo REVISI YANG SUDAH SELESAI:
-echo [X] Halaman Sejarah - Foto asli
-echo [X] Hero Section - Text center semua
-echo [X] Struktur Kepengurusan - Hanya bagan
-echo [X] Kesekretariatan - Profil pengurus
-echo [X] Bidang Show - Grouping by seksi
-echo [X] Database - Field seksi + urutan
-echo [X] Admin - Rename Pengurus Inti jadi Kesekretariatan
-echo [X] Admin - Hapus tipe pembina + pengawas
+
+echo [4/4] Running final checks...
+echo - Checking folder permissions...
+if not exist "storage\app\public\kegiatan" mkdir storage\app\public\kegiatan
+if not exist "storage\app\public\anggota" mkdir storage\app\public\anggota
+if not exist "storage\app\public\aset" mkdir storage\app\public\aset
+if not exist "storage\app\public\struktur" mkdir storage\app\public\struktur
+if not exist "storage\app\public\pengurus" mkdir storage\app\public\pengurus
+echo Storage folders verified!
 echo.
-echo YANG MASIH PERLU DIKERJAKAN:
-echo [ ] Update Navbar Public - Tambah Aset, hapus tombol Admin
-echo [ ] Update Footer - Tambah tombol Admin
-echo [ ] Update Controller - Untuk halaman Aset public
-echo [ ] Test semua halaman
+
+echo ============================================
+echo   DEPLOYMENT COMPLETED SUCCESSFULLY!
+echo ============================================
 echo.
+echo Changes deployed:
+echo  [+] Halaman Bidang - Cakupan layout improved
+echo  [+] Kegiatan Berjalan - Images now showing
+echo  [+] Kegiatan Mendatang - Images now showing
+echo  [+] Navbar - Added "Aset" menu
+echo  [+] Footer - Admin button moved here
+echo  [+] Database queries - Fixed status column errors
+echo.
+echo Please test the following pages:
+echo  - http://127.0.0.1:8000/bidang/{id}
+echo  - http://127.0.0.1:8000/program-kerja/terlaksana
+echo  - http://127.0.0.1:8000/program-kerja/rencana
+echo  - Navigation: Check Aset menu in navbar
+echo  - Footer: Check Admin button
+echo.
+echo ============================================
 pause

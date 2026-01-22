@@ -371,16 +371,14 @@
                         </ul>
                     </li>
 
+                    <!-- Aset -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.aset') ? 'active' : '' }}" href="{{ route('public.aset') }}">Aset</a>
+                    </li>
+
                     <!-- Kontak -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('public.kontak') ? 'active' : '' }}" href="{{ route('public.kontak') }}">Kontak</a>
-                    </li>
-
-                    <!-- Admin Button -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="bi bi-box-arrow-in-right"></i> Admin
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -427,6 +425,11 @@
             </div>
             <div class="footer-bottom">
                 <p class="mb-0">&copy; {{ date('Y') }} Masjid Merah Baiturrahman. All rights reserved.</p>
+                <div class="mt-3">
+                    <a href="{{ route('login') }}" class="btn btn-sm btn-outline-light">
+                        <i class="bi bi-box-arrow-in-right"></i> Portal Admin
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

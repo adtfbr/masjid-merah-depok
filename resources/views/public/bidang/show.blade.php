@@ -32,18 +32,39 @@
                         sesuai dengan cakupan tugasnya.
                     </p>
                 @endif
-
-                <!-- Cakupan & Program Kerja Dynamic -->
-                @if($programKerja->count() > 0)
-                    <h5 class="mt-4 mb-3">Cakupan & Program Kerja:</h5>
-                    <ul>
-                        @foreach($programKerja as $pk)
-                            <li>{{ $pk->judul }}</li>
-                        @endforeach
-                    </ul>
-                @endif
             </div>
         </div>
+
+        <!-- Cakupan Dynamic -->
+        @if($programKerja->count() > 0)
+        <div class="card card-modern mb-5">
+            <div class="card-header" style="background: var(--primary); color: white;">
+                <h4 class="mb-0"><i class="bi bi-list-check"></i> Cakupan</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row">
+                    @foreach($programKerja as $pk)
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                                     style="width: 40px; height: 40px; font-weight: bold; flex-shrink: 0;">
+                                    {{ $pk->nomor_urut }}
+                                </div>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">{{ $pk->judul }}</h6>
+                                @if($pk->deskripsi)
+                                    <p class="text-muted mb-0" style="font-size: 0.9rem; text-align: justify;">{{ $pk->deskripsi }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
 
         <!-- Target Program (jika ada) -->
         @if($targetProgram->count() > 0)

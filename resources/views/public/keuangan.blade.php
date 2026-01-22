@@ -98,7 +98,6 @@
                                 <td>TOTAL</td>
                                 <td class="text-end text-success">{{ formatRupiah($totalPemasukan) }}</td>
                                 <td class="text-end text-danger">{{ formatRupiah($totalPengeluaran) }}</td>
-                                <td class="text-end {{ $saldo >= 0 ? 'text-primary' : 'text-warning' }}">{{ formatRupiah($saldo) }}</td>
                             </tr>
                         </tfoot>
                     </table>

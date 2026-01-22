@@ -277,14 +277,12 @@ class PublicController extends Controller
      */
     public function prokerTerlaksana()
     {
-        // Get all kegiatan that are currently running (tanggal_selesai sudah lewat atau hari ini)
-        $kegiatans = Kegiatan::with('bidang')
+        // Get all kegiatan that are currently running or completed
+        // (tanggal_selesai sudah lewat atau tanggal_mulai sudah dimulai)
+        $kegiatans = Kegiatan::with(['bidang', 'foto'])
             ->where(function($query) {
                 $query->where('tanggal_selesai', '<=', now())
-                      ->orWhere(function($q) {
-                          $q->whereDate('tanggal_mulai', '<=', now())
-                            ->whereNull('tanggal_selesai');
-                      });
+                      ->orWhere('tanggal_mulai', '<=', now());
             })
             ->latest('tanggal_mulai')
             ->get();
@@ -301,8 +299,8 @@ class PublicController extends Controller
     public function prokerRencana()
     {
         // Get kegiatan yang tanggal_mulai masih di masa depan
-        $kegiatans = Kegiatan::with('bidang')
-            ->whereDate('tanggal_mulai', '>', now())
+        $kegiatans = Kegiatan::with(['bidang', 'foto'])
+            ->where('tanggal_mulai', '>', now())
             ->orderBy('tanggal_mulai')
             ->get();
 

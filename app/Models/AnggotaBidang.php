@@ -15,9 +15,35 @@ class AnggotaBidang extends Model
         'bidang_id',
         'nama',
         'jabatan',
+        'seksi',
         'foto',
         'no_hp',
+        'urutan',
     ];
+
+    /**
+     * Scope untuk filter by seksi
+     */
+    public function scopeSeksi($query, $seksi)
+    {
+        return $query->where('seksi', $seksi);
+    }
+
+    /**
+     * Scope untuk order by urutan
+     */
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('urutan')->orderBy('nama');
+    }
+
+    /**
+     * Scope untuk ketua bidang
+     */
+    public function scopeKetuaBidang($query)
+    {
+        return $query->where('jabatan', 'LIKE', '%Ketua%')->orWhere('jabatan', 'LIKE', '%Koordinator%');
+    }
 
     /**
      * Relasi ke Bidang

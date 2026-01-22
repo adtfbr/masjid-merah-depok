@@ -51,13 +51,20 @@ class AnggotaBidangController extends Controller
             'bidang_id' => 'required|exists:bidangs,id',
             'nama' => 'required|string|max:150',
             'jabatan' => 'required|string|max:100',
+            'seksi' => 'nullable|string|max:100',
             'no_hp' => 'nullable|string|max:20',
+            'urutan' => 'nullable|integer|min:0',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // Upload foto
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('anggota', 'public');
+        }
+
+        // Set default urutan if not provided
+        if (!isset($validated['urutan'])) {
+            $validated['urutan'] = 0;
         }
 
         $anggota = AnggotaBidang::create($validated);
@@ -95,7 +102,9 @@ class AnggotaBidangController extends Controller
             'bidang_id' => 'required|exists:bidangs,id',
             'nama' => 'required|string|max:150',
             'jabatan' => 'required|string|max:100',
+            'seksi' => 'nullable|string|max:100',
             'no_hp' => 'nullable|string|max:20',
+            'urutan' => 'nullable|integer|min:0',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -106,6 +115,11 @@ class AnggotaBidangController extends Controller
                 Storage::disk('public')->delete($anggotum->foto);
             }
             $validated['foto'] = $request->file('foto')->store('anggota', 'public');
+        }
+
+        // Set default urutan if not provided
+        if (!isset($validated['urutan'])) {
+            $validated['urutan'] = 0;
         }
 
         $anggotum->update($validated);

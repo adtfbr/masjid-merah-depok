@@ -41,6 +41,22 @@ class Bidang extends Model
     }
 
     /**
+     * Relasi ke BidangProgramKerja
+     */
+    public function programKerja()
+    {
+        return $this->hasMany(BidangProgramKerja::class, 'bidang_id');
+    }
+
+    /**
+     * Relasi ke TargetProgram
+     */
+    public function targetProgram()
+    {
+        return $this->hasMany(TargetProgram::class, 'bidang_id');
+    }
+
+    /**
      * Accessor untuk jumlah anggota
      */
     public function getJumlahAnggotaAttribute()

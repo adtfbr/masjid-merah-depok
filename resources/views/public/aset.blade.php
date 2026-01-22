@@ -3,22 +3,15 @@
 @section('title', 'Aset Masjid')
 
 @section('content')
-<!-- Hero Section dengan Background Masjid -->
-<div class="hero-section" style="
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('{{ asset('images/hero-masjid.jpg') }}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding: 120px 0 80px 0;
-    color: white;
-">
-    <div class="container text-center">
-        <h1 style="padding: 60px 0;">
-            <i class="bi bi-box-seam"></i> ASET MASJID
-        </h1>
-        <p>
-            Inventaris dan Aset Masjid Merah Baiturrahman
-        </p>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3">Aset Masjid</h1>
+                <p class="lead text-white-50">Inventaris dan Aset Masjid Merah Baiturrahman</p>
+            </div>
+        </div>
     </div>
 </div>
 

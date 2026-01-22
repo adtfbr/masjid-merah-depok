@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') - Masjid</title>
+    <title>@yield('title') - Masjid Merah Baiturrahman</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-masjid.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo-masjid.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-masjid.png') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -312,24 +317,66 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <!-- Beranda -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('public.organisasi') ? 'active' : '' }}" href="{{ route('public.organisasi') }}">Organisasi</a>
+
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('public.profile.*') ? 'active' : '' }}" href="#" id="navbarProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarProfile">
+                            <li><a class="dropdown-item" href="{{ route('public.profile.sejarah') }}">Sejarah Masjid Merah</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.profile.visimisi') }}">Visi Misi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.profile.struktur') }}">Struktur Kepengurusan</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('public.kegiatan*') ? 'active' : '' }}" href="{{ route('public.kegiatan') }}">Kegiatan</a>
+
+                    <!-- Manajemen Utama Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('public.manajemen.*') || request()->routeIs('public.keuangan') ? 'active' : '' }}" href="#" id="navbarManajemen" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manajemen Utama
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarManajemen">
+                            <li><a class="dropdown-item" href="{{ route('public.manajemen.kesekretariatan') }}">Kesekretariatan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.keuangan') }}">Keuangan</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('public.keuangan') ? 'active' : '' }}" href="{{ route('public.keuangan') }}">Keuangan</a>
+
+                    <!-- Manajemen Bidang Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('public.bidang.*') ? 'active' : '' }}" href="#" id="navbarBidang" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Manajemen Bidang
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarBidang">
+                            <li><a class="dropdown-item" href="{{ route('public.bidang.show', 2) }}">Bidang Kemasjidan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.bidang.show', 1) }}">Bidang Usaha dan Ekonomi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.bidang.show', 3) }}">Bidang Pendidikan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.bidang.show', 5) }}">Bidang Pengelolaan Aset</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.bidang.show', 4) }}">Bidang Sosial Kemasyarakatan</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('public.aset') ? 'active' : '' }}" href="{{ route('public.aset') }}">Aset</a>
+
+                    <!-- Program Kerja Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('public.proker.*') ? 'active' : '' }}" href="#" id="navbarProker" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Program Kerja
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarProker">
+                            <li><a class="dropdown-item" href="{{ route('public.proker.terlaksana') }}">Kegiatan Berjalan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.proker.rencana') }}">Kegiatan Mendatang</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.proker.target') }}">Target Program</a></li>
+                        </ul>
                     </li>
+
+                    <!-- Kontak -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('public.kontak') ? 'active' : '' }}" href="{{ route('public.kontak') }}">Kontak</a>
                     </li>
+
+                    <!-- Admin Button -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">
                             <i class="bi bi-box-arrow-in-right"></i> Admin

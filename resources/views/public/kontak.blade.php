@@ -3,10 +3,15 @@
 @section('title', 'Kontak')
 
 @section('content')
-<div class="hero-section" style="padding: 60px 0;">
-    <div class="container text-center">
-        <h1><i class="bi bi-envelope"></i> Hubungi Kami</h1>
-        <p>Kami siap melayani dan menjawab pertanyaan Anda</p>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3">Hubungi Kami</h1>
+                <p class="lead text-white-50">Kami siap melayani dan menjawab pertanyaan Anda</p>
+            </div>
+        </div>
     </div>
 </div>
 

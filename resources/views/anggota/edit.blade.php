@@ -38,22 +38,53 @@
                         @enderror
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">Jabatan <span class="text-danger">*</span></label>
-                        <input type="text" name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" 
-                               value="{{ old('jabatan', $anggotum->jabatan) }}" required>
-                        @error('jabatan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Jabatan <span class="text-danger">*</span></label>
+                                <input type="text" name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" 
+                                       value="{{ old('jabatan', $anggotum->jabatan) }}" placeholder="Contoh: Ketua Bidang" required>
+                                <small class="text-muted">Jika Ketua Bidang, tulis: "Ketua Bidang" atau "Koordinator"</small>
+                                @error('jabatan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Seksi/Bagian</label>
+                                <input type="text" name="seksi" class="form-control @error('seksi') is-invalid @enderror" 
+                                       value="{{ old('seksi', $anggotum->seksi) }}" placeholder="Contoh: Seksi Ibadah">
+                                <small class="text-muted">Kosongkan jika Ketua Bidang. Untuk anggota isi dengan nama seksi.</small>
+                                @error('seksi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">No HP</label>
-                        <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" 
-                               value="{{ old('no_hp', $anggotum->no_hp) }}">
-                        @error('no_hp')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">No HP</label>
+                                <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" 
+                                       value="{{ old('no_hp', $anggotum->no_hp) }}" placeholder="Contoh: 081234567890">
+                                @error('no_hp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Urutan Tampil</label>
+                                <input type="number" name="urutan" class="form-control @error('urutan') is-invalid @enderror" 
+                                       value="{{ old('urutan', $anggotum->urutan ?? 0) }}" min="0" placeholder="0">
+                                <small class="text-muted">Angka lebih kecil tampil lebih dulu. Default: 0</small>
+                                @error('urutan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="mb-3">
@@ -73,6 +104,15 @@
                         <div class="mt-2">
                             <img id="preview" src="" class="rounded" style="max-width: 200px; display: none;">
                         </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong><i class="bi bi-info-circle"></i> Panduan Pengisian:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li><strong>Ketua Bidang:</strong> Jabatan = "Ketua Bidang", Seksi = (kosongkan)</li>
+                            <li><strong>Anggota Seksi:</strong> Jabatan = "Anggota", Seksi = "Seksi Ibadah" (atau nama seksi lain)</li>
+                            <li><strong>Urutan:</strong> Ketua Bidang = 0, Anggota = 1,2,3... (atau sesuai urutan yang diinginkan)</li>
+                        </ul>
                     </div>
                     
                     <div class="d-flex gap-2">

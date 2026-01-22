@@ -50,11 +50,11 @@
     </div>
 </section>
 
-<!-- Kegiatan Terbaru -->
+<!-- Kegiatan Berjalan -->
 <section class="section">
     <div class="container">
         <div class="section-title">
-            <h2><i class="bi bi-calendar-event"></i> Kegiatan Terbaru</h2>
+            <h2><i class="bi bi-calendar-event"></i> Kegiatan Berjalan</h2>
             <p>Ikuti berbagai kegiatan masjid kami</p>
         </div>
 
@@ -98,8 +98,8 @@
 
         @if($kegiatanTerbaru->count() > 0)
         <div class="text-center mt-4">
-            <a href="{{ route('public.kegiatan') }}" class="btn btn-primary-custom">
-                Lihat Semua Kegiatan <i class="bi bi-arrow-right"></i>
+            <a href="{{ route('public.proker.terlaksana') }}" class="btn btn-primary-custom">
+                Lihat Semua Kegiatan Berjalan <i class="bi bi-arrow-right"></i>
             </a>
         </div>
         @endif

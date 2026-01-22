@@ -8,6 +8,11 @@ use App\Models\AnggotaBidang;
 use App\Models\Kegiatan;
 use App\Models\TransaksiKeuangan;
 use App\Models\Aset;
+use App\Models\PengurusInti;
+use App\Models\StrukturGambar;
+use App\Models\TargetKesekretariatan;
+use App\Models\BidangProgramKerja;
+use App\Models\TargetProgram;
 
 class PublicController extends Controller
 {
@@ -146,5 +151,174 @@ class PublicController extends Controller
         $totalAset = Aset::count();
 
         return view('public.aset', compact('asets', 'totalNilaiAset', 'totalAset'));
+    }
+
+    // ==================== NEW METHODS FOR RESTRUCTURED NAVIGATION ====================
+
+    /**
+     * Profile - Sejarah Masjid Merah
+     */
+    public function sejarah()
+    {
+        return view('public.profile.sejarah');
+    }
+
+    /**
+     * Profile - Visi Misi
+     */
+    public function visiMisi()
+    {
+        return view('public.profile.visi-misi');
+    }
+
+    /**
+     * Profile - Struktur Kepengurusan (Reuse organisasi with Dewan Pembina)
+     */
+    public function struktur()
+    {
+        $bidangs = Bidang::with(['anggota' => function($query) {
+            $query->orderBy('jabatan');
+        }])->get();
+
+        // Get Pengurus Inti grouped by tipe
+        $pembina = PengurusInti::where('tipe', 'pembina')->ordered()->get();
+        $pengawas = PengurusInti::where('tipe', 'pengawas')->ordered()->get();
+        $ketua = PengurusInti::where('tipe', 'ketua')->ordered()->first();
+        $sekretaris = PengurusInti::where('tipe', 'sekretaris')->ordered()->first();
+        $bendahara = PengurusInti::where('tipe', 'bendahara')->ordered()->first();
+
+        // Get active struktur gambar
+        $strukturGambar = StrukturGambar::aktif()->first();
+
+        return view('public.profile.struktur', compact(
+            'bidangs',
+            'pembina',
+            'pengawas',
+            'ketua',
+            'sekretaris',
+            'bendahara',
+            'strukturGambar'
+        ));
+    }
+
+    /**
+     * Manajemen Utama - Kesekretariatan
+     */
+    public function kesekretariatan()
+    {
+        $tahun = request('tahun', date('Y'));
+        $targetKesekretariatan = TargetKesekretariatan::tahun($tahun)->ordered()->get();
+        
+        // Get available years
+        $years = TargetKesekretariatan::selectRaw('DISTINCT tahun')
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+        
+        // Ensure current year is in the list
+        if (!$years->contains(date('Y'))) {
+            $years->prepend(date('Y'));
+        }
+
+        // Get Kesekretariatan members (assuming bidang_id for Kesekretariatan)
+        // You need to identify which bidang_id is Kesekretariatan
+        // For now, we'll get all pengurus inti
+        $ketua = PengurusInti::where('tipe', 'ketua')->ordered()->first();
+        $sekretaris = PengurusInti::where('tipe', 'sekretaris')->ordered()->first();
+        $bendahara = PengurusInti::where('tipe', 'bendahara')->ordered()->first();
+
+        return view('public.manajemen.kesekretariatan', compact(
+            'targetKesekretariatan', 
+            'tahun', 
+            'years',
+            'ketua',
+            'sekretaris',
+            'bendahara'
+        ));
+    }
+
+    /**
+     * Show Bidang Detail (Dynamic)
+     */
+    public function showBidang($id)
+    {
+        $bidang = Bidang::findOrFail($id);
+
+        // Get Ketua Bidang
+        $ketuaBidang = AnggotaBidang::where('bidang_id', $id)
+            ->ketuaBidang()
+            ->ordered()
+            ->first();
+
+        // Get Anggota grouped by Seksi
+        $anggotaBySeksi = AnggotaBidang::where('bidang_id', $id)
+            ->whereNotNull('seksi')
+            ->where('seksi', '!=', '')
+            ->ordered()
+            ->get()
+            ->groupBy('seksi');
+
+        // Get Program Kerja for this bidang
+        $programKerja = BidangProgramKerja::where('bidang_id', $id)->ordered()->get();
+
+        // Get Target Program for this bidang
+        $targetProgram = TargetProgram::where('bidang_id', $id)->ordered()->get();
+
+        return view('public.bidang.show', compact(
+            'bidang', 
+            'ketuaBidang',
+            'anggotaBySeksi',
+            'programKerja', 
+            'targetProgram'
+        ));
+    }
+
+    /**
+     * Program Kerja - Kegiatan Berjalan (Grouping by Bidang)
+     */
+    public function prokerTerlaksana()
+    {
+        // Get all kegiatan that are currently running (tanggal_selesai sudah lewat atau hari ini)
+        $kegiatans = Kegiatan::with('bidang')
+            ->where(function($query) {
+                $query->where('tanggal_selesai', '<=', now())
+                      ->orWhere(function($q) {
+                          $q->whereDate('tanggal_mulai', '<=', now())
+                            ->whereNull('tanggal_selesai');
+                      });
+            })
+            ->latest('tanggal_mulai')
+            ->get();
+
+        // Group by bidang
+        $kegiatansByBidang = $kegiatans->groupBy('bidang_id');
+
+        return view('public.proker.terlaksana', compact('kegiatansByBidang'));
+    }
+
+    /**
+     * Program Kerja - Kegiatan Mendatang
+     */
+    public function prokerRencana()
+    {
+        // Get kegiatan yang tanggal_mulai masih di masa depan
+        $kegiatans = Kegiatan::with('bidang')
+            ->whereDate('tanggal_mulai', '>', now())
+            ->orderBy('tanggal_mulai')
+            ->get();
+
+        return view('public.proker.rencana', compact('kegiatans'));
+    }
+
+    /**
+     * Program Kerja - Target Program
+     */
+    public function prokerTarget()
+    {
+        // Get all bidangs with their target programs
+        $bidangs = Bidang::with(['targetProgram' => function($query) {
+            $query->ordered();
+        }])->get();
+
+        return view('public.proker.target', compact('bidangs'));
     }
 }

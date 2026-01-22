@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') - {{ config('app.name') }}</title>
+    <title>@yield('title') - Admin Masjid Merah</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-masjid.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo-masjid.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-masjid.png') }}">
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -182,6 +187,30 @@
             
             <a href="{{ route('transaksi.laporan') }}" class="nav-link {{ request()->routeIs('transaksi.laporan') ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-bar-graph"></i> Laporan
+            </a>
+            
+            <div class="mt-3 mb-2" style="padding: 0 20px; color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase;">
+                Konten Website
+            </div>
+            
+            <a href="{{ route('pengurus-inti.index') }}" class="nav-link {{ request()->routeIs('pengurus-inti.*') ? 'active' : '' }}">
+                <i class="bi bi-person-badge"></i> Kesekretariatan
+            </a>
+            
+            <a href="{{ route('struktur-gambar.index') }}" class="nav-link {{ request()->routeIs('struktur-gambar.*') ? 'active' : '' }}">
+                <i class="bi bi-diagram-3"></i> Struktur Gambar
+            </a>
+            
+            <a href="{{ route('target-kesekretariatan.index') }}" class="nav-link {{ request()->routeIs('target-kesekretariatan.*') ? 'active' : '' }}">
+                <i class="bi bi-list-check"></i> Target Kesekretariatan
+            </a>
+            
+            <a href="{{ route('bidang-program-kerja.index') }}" class="nav-link {{ request()->routeIs('bidang-program-kerja.*') ? 'active' : '' }}">
+                <i class="bi bi-journal-text"></i> Program Kerja Bidang
+            </a>
+            
+            <a href="{{ route('target-program.index') }}" class="nav-link {{ request()->routeIs('target-program.*') ? 'active' : '' }}">
+                <i class="bi bi-bullseye"></i> Target Program
             </a>
             
             <div class="mt-3 mb-2" style="padding: 0 20px; color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase;">

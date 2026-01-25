@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Pengurus Inti')
+@section('title', 'Dewan Pengurus Harian')
 
 @section('content')
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pengurus Inti</h1>
+        <h1 class="h3 mb-0 text-gray-800">Dewan Pengurus Harian</h1>
         <a href="{{ route('pengurus-inti.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Pengurus
         </a>

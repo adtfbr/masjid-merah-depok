@@ -14,12 +14,13 @@ class BidangProgramKerja extends Model
     protected $fillable = [
         'bidang_id',
         'judul',
-        'urutan'
+        'deskripsi',
+        'nomor_urut'
     ];
 
     protected $casts = [
         'bidang_id' => 'integer',
-        'urutan' => 'integer'
+        'nomor_urut' => 'integer'
     ];
 
     /**
@@ -39,10 +40,10 @@ class BidangProgramKerja extends Model
     }
 
     /**
-     * Scope untuk ordering berdasarkan urutan
+     * Scope untuk ordering berdasarkan nomor urut
      */
     public function scopeOrdered($query)
     {
-        return $query->orderBy('urutan');
+        return $query->orderBy('nomor_urut');
     }
 }

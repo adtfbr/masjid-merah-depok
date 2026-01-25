@@ -43,6 +43,33 @@
                 </form>
             </div>
         </div>
+        
+        <!-- Quick Links -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-link-45deg"></i> Kelola Konten Bidang</h6>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="d-grid">
+                            <a href="{{ route('bidang-program-kerja.index', ['bidang_id' => $bidang->id]) }}" class="btn btn-outline-primary">
+                                <i class="bi bi-list-check"></i> Program Kerja Bidang
+                                <span class="badge bg-primary ms-2">{{ $bidang->programKerja->count() }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-grid">
+                            <a href="{{ route('target-program.index', ['bidang_id' => $bidang->id]) }}" class="btn btn-outline-success">
+                                <i class="bi bi-bullseye"></i> Target Program
+                                <span class="badge bg-success ms-2">{{ $bidang->targetProgram->count() }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

@@ -13,7 +13,7 @@ class BidangController extends Controller
      */
     public function index()
     {
-        $bidangs = Bidang::withCount(['anggota', 'kegiatan'])
+        $bidangs = Bidang::withCount(['anggota', 'kegiatan', 'programKerja', 'targetProgram'])
             ->latest()
             ->paginate(10);
 
@@ -38,12 +38,15 @@ class BidangController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        $bidang = Bidang::create($validated);
+        $bidang = Bidang::create([
+            'nama_bidang' => $validated['nama_bidang'],
+            'deskripsi' => $validated['deskripsi'] ?? null,
+        ]);
 
         ActivityLog::log("Menambahkan bidang: {$bidang->nama_bidang}");
 
         return redirect()->route('bidang.index')
-            ->with('success', 'Bidang berhasil ditambahkan.');
+            ->with('success', 'Bidang berhasil ditambahkan. Anda dapat menambahkan Program Kerja dan Target Program melalui menu yang tersedia.');
     }
 
     /**
@@ -53,7 +56,7 @@ class BidangController extends Controller
     {
         $bidang->load(['anggota', 'kegiatan' => function($query) {
             $query->latest()->limit(5);
-        }]);
+        }, 'programKerja', 'targetProgram']);
 
         return view('bidang.show', compact('bidang'));
     }
@@ -63,6 +66,7 @@ class BidangController extends Controller
      */
     public function edit(Bidang $bidang)
     {
+        $bidang->loadCount(['programKerja', 'targetProgram']);
         return view('bidang.edit', compact('bidang'));
     }
 
@@ -76,7 +80,10 @@ class BidangController extends Controller
             'deskripsi' => 'nullable|string',
         ]);
 
-        $bidang->update($validated);
+        $bidang->update([
+            'nama_bidang' => $validated['nama_bidang'],
+            'deskripsi' => $validated['deskripsi'] ?? null,
+        ]);
 
         ActivityLog::log("Mengubah bidang: {$bidang->nama_bidang}");
 

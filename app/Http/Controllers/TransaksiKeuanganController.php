@@ -44,7 +44,7 @@ class TransaksiKeuanganController extends Controller
 
         $transaksis = $query->latest('tanggal')->paginate(20);
 
-        // Hitung total
+        // Hitung total pemasukan & pengeluaran untuk periode yang difilter
         $totalPemasukan = TransaksiKeuangan::pemasukan();
         $totalPengeluaran = TransaksiKeuangan::pengeluaran();
 
@@ -56,7 +56,26 @@ class TransaksiKeuanganController extends Controller
 
         $totalPemasukan = $totalPemasukan->sum('jumlah');
         $totalPengeluaran = $totalPengeluaran->sum('jumlah');
-        $saldo = $totalPemasukan - $totalPengeluaran;
+
+        // Hitung saldo riil bulan terakhir (untuk tahun berjalan)
+        $currentYear = date('Y');
+        $saldoAkhir = 0;
+        
+        for ($month = 1; $month <= 12; $month++) {
+            $pemasukan = TransaksiKeuangan::pemasukan()
+                ->whereYear('tanggal', $currentYear)
+                ->whereMonth('tanggal', $month)
+                ->sum('jumlah');
+            
+            $pengeluaran = TransaksiKeuangan::pengeluaran()
+                ->whereYear('tanggal', $currentYear)
+                ->whereMonth('tanggal', $month)
+                ->sum('jumlah');
+            
+            if ($pemasukan > 0 || $pengeluaran > 0) {
+                $saldoAkhir = $pemasukan - $pengeluaran;
+            }
+        }
 
         $akuns = AkunKeuangan::orderBy('nama_akun')->get();
         $bidangs = Bidang::orderBy('nama_bidang')->get();
@@ -67,7 +86,7 @@ class TransaksiKeuanganController extends Controller
             'bidangs',
             'totalPemasukan',
             'totalPengeluaran',
-            'saldo'
+            'saldoAkhir'
         ));
     }
 

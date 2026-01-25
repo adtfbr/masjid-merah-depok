@@ -26,7 +26,7 @@
                         @foreach($bidangs as $bidang)
                             <option value="{{ $bidang->id }}" 
                                 {{ old('bidang_id', $bidangProgramKerja->bidang_id) == $bidang->id ? 'selected' : '' }}>
-                                {{ $bidang->nama }}
+                                {{ $bidang->nama_bidang }}
                             </option>
                         @endforeach
                     </select>
@@ -36,8 +36,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="nomor_urut">Nomor Urut <span class="text-danger">*</span></label>
+                    <input type="number" name="nomor_urut" id="nomor_urut" 
+                           class="form-control @error('nomor_urut') is-invalid @enderror" 
+                           value="{{ old('nomor_urut', $bidangProgramKerja->nomor_urut ?? 1) }}" min="1" required>
+                    <small class="form-text text-muted">Nomor urut tampilan (1, 2, 3, ...)</small>
+                    @error('nomor_urut')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="judul">Judul Program Kerja <span class="text-danger">*</span></label>
-                    <textarea name="judul" id="judul" rows="3"
+                    <textarea name="judul" id="judul" rows="2"
                               class="form-control @error('judul') is-invalid @enderror" 
                               required>{{ old('judul', $bidangProgramKerja->judul) }}</textarea>
                     @error('judul')
@@ -46,12 +57,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="urutan">Urutan <span class="text-danger">*</span></label>
-                    <input type="number" name="urutan" id="urutan" 
-                           class="form-control @error('urutan') is-invalid @enderror" 
-                           value="{{ old('urutan', $bidangProgramKerja->urutan) }}" min="0" required>
-                    <small class="form-text text-muted">Urutan tampilan (semakin kecil semakin atas)</small>
-                    @error('urutan')
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea name="deskripsi" id="deskripsi" rows="4"
+                              class="form-control @error('deskripsi') is-invalid @enderror">{{ old('deskripsi', $bidangProgramKerja->deskripsi) }}</textarea>
+                    <small class="form-text text-muted">Penjelasan detail tentang program kerja (opsional)</small>
+                    @error('deskripsi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

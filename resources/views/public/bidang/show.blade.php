@@ -45,15 +45,15 @@
                 <div class="row">
                     @foreach($programKerja as $pk)
                     <div class="col-md-6 mb-3">
-                        <div class="d-flex">
-                            <div class="me-3">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0 me-3">
                                 <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
-                                     style="width: 40px; height: 40px; font-weight: bold; flex-shrink: 0;">
+                                     style="min-width: 48px; width: 48px; height: 48px; font-weight: bold; font-size: 1.25rem;">
                                     {{ $pk->nomor_urut }}
                                 </div>
                             </div>
-                            <div>
-                                <h6 class="mb-1">{{ $pk->judul }}</h6>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-2">{{ $pk->judul }}</h6>
                                 @if($pk->deskripsi)
                                     <p class="text-muted mb-0" style="font-size: 0.9rem; text-align: justify;">{{ $pk->deskripsi }}</p>
                                 @endif
@@ -76,16 +76,20 @@
                 <div class="row">
                     @foreach($targetProgram as $target)
                     <div class="col-md-6 mb-4">
-                        <div class="card h-100 border-primary">
+                        <div class="card h-100 border-secondary shadow-sm">
                             <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                         style="width: 50px; height: 50px; font-weight: bold;">
-                                        {{ $target->nomor_urut }}
+                                <div class="d-flex align-items-start mb-3">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" 
+                                             style="min-width: 48px; width: 48px; height: 48px; font-weight: bold; font-size: 1.25rem;">
+                                            {{ $target->nomor_urut }}
+                                        </div>
                                     </div>
-                                    <h5 class="mb-0">{{ $target->judul }}</h5>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="mb-0">{{ $target->judul }}</h5>
+                                    </div>
                                 </div>
-                                <p class="mb-0" style="text-align: justify;">
+                                <p class="mb-0 ms-0" style="text-align: justify;">
                                     {{ $target->deskripsi }}
                                 </p>
                             </div>
@@ -107,28 +111,22 @@
                     <!-- Ketua Bidang (Posisi Atas - Lebih Besar) -->
                     @if($ketuaBidang)
                     <div class="row justify-content-center mb-5">
-                        <div class="col-md-4">
-                            <div class="card border-primary shadow-sm">
-                                <div class="card-body text-center p-4">
-                                    @if($ketuaBidang->foto)
-                                        <img src="{{ Storage::url($ketuaBidang->foto) }}" 
-                                             alt="{{ $ketuaBidang->nama }}"
-                                             class="rounded-circle mb-3" 
-                                             style="width: 140px; height: 140px; object-fit: cover; border: 5px solid var(--primary);">
-                                    @else
-                                        <div class="rounded-circle bg-secondary mx-auto mb-3" 
-                                             style="width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; border: 5px solid var(--primary);">
-                                            <i class="bi bi-person-fill text-white" style="font-size: 4rem;"></i>
-                                        </div>
-                                    @endif
-                                    <h4 class="mb-1 fw-bold text-primary">{{ $ketuaBidang->nama }}</h4>
-                                    <p class="text-muted mb-2"><strong>{{ $ketuaBidang->jabatan }}</strong></p>
-                                    @if($ketuaBidang->no_hp)
-                                        <p class="mb-0">
-                                            <i class="bi bi-telephone"></i> {{ $ketuaBidang->no_hp }}
-                                        </p>
-                                    @endif
+                        <div class="col-auto">
+                            <div class="bagan-card">
+                                @if($ketuaBidang->foto)
+                                    <img src="{{ Storage::url($ketuaBidang->foto) }}" alt="{{ $ketuaBidang->nama }}">
+                                @else
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Crect fill='%23667eea' width='260' height='260'/%3E%3Cg fill='%23ffffff' opacity='0.8'%3E%3Ccircle cx='130' cy='100' r='40'/%3E%3Cpath d='M80 200 Q80 140 130 140 Q180 140 180 200 Z'/%3E%3C/g%3E%3C/svg%3E" alt="{{ $ketuaBidang->nama }}">
+                                @endif
+                                <div class="bagan-label">
+                                    <h5>{{ $ketuaBidang->nama }}</h5>
+                                    <p>{{ $ketuaBidang->jabatan }}</p>
                                 </div>
+                                @if($ketuaBidang->no_hp)
+                                    <small class="text-muted d-block mt-2">
+                                        <i class="bi bi-telephone"></i> {{ $ketuaBidang->no_hp }}
+                                    </small>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -138,35 +136,27 @@
                     @if($anggotaBySeksi->count() > 0)
                         @foreach($anggotaBySeksi as $namaSeksi => $anggotaSeksi)
                         <div class="mb-5">
-                            <h5 class="mb-3 text-primary">
+                            <h5 class="mb-4 text-center text-primary">
                                 <i class="bi bi-diagram-2"></i> {{ $namaSeksi }}
                             </h5>
-                            <div class="row">
+                            <div class="row justify-content-center gap-4">
                                 @foreach($anggotaSeksi as $anggota)
-                                <div class="col-md-3 col-sm-6 mb-4">
-                                    <div class="card border-secondary shadow-sm h-100">
-                                        <div class="card-body text-center">
-                                            @if($anggota->foto)
-                                                <img src="{{ Storage::url($anggota->foto) }}" 
-                                                     alt="{{ $anggota->nama }}"
-                                                     class="rounded-circle mb-3" 
-                                                     style="width: 100px; height: 100px; object-fit: cover; border: 4px solid var(--secondary);">
-                                            @else
-                                                <div class="rounded-circle bg-secondary mx-auto mb-3" 
-                                                     style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--secondary);">
-                                                    <i class="bi bi-person-fill text-white" style="font-size: 3rem;"></i>
-                                                </div>
-                                            @endif
-                                            <h6 class="mb-1">{{ $anggota->nama }}</h6>
-                                            <p class="text-muted mb-2" style="font-size: 0.9rem;">
-                                                <strong>{{ $anggota->jabatan }}</strong>
-                                            </p>
-                                            @if($anggota->no_hp)
-                                                <p class="mb-0" style="font-size: 0.85rem;">
-                                                    <i class="bi bi-telephone"></i> {{ $anggota->no_hp }}
-                                                </p>
-                                            @endif
+                                <div class="col-auto">
+                                    <div class="bagan-card">
+                                        @if($anggota->foto)
+                                            <img src="{{ Storage::url($anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                        @else
+                                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Crect fill='%23667eea' width='260' height='260'/%3E%3Cg fill='%23ffffff' opacity='0.8'%3E%3Ccircle cx='130' cy='100' r='40'/%3E%3Cpath d='M80 200 Q80 140 130 140 Q180 140 180 200 Z'/%3E%3C/g%3E%3C/svg%3E" alt="{{ $anggota->nama }}">
+                                        @endif
+                                        <div class="bagan-label">
+                                            <h5>{{ $anggota->nama }}</h5>
+                                            <p>{{ $anggota->jabatan }}</p>
                                         </div>
+                                        @if($anggota->no_hp)
+                                            <small class="text-muted d-block mt-2">
+                                                <i class="bi bi-telephone"></i> {{ $anggota->no_hp }}
+                                            </small>
+                                        @endif
                                     </div>
                                 </div>
                                 @endforeach

@@ -30,7 +30,7 @@
                     <option value="">-- Semua Bidang --</option>
                     @foreach($bidangs as $bidang)
                         <option value="{{ $bidang->id }}" {{ $bidangId == $bidang->id ? 'selected' : '' }}>
-                            {{ $bidang->nama }}
+                            {{ $bidang->nama_bidang }}
                         </option>
                     @endforeach
                 </select>
@@ -44,7 +44,7 @@
             <h6 class="m-0 font-weight-bold text-primary">
                 Daftar Target Program
                 @if($bidangId)
-                    - {{ $bidangs->find($bidangId)->nama ?? '' }}
+                    - {{ $bidangs->find($bidangId)->nama_bidang ?? '' }}
                 @endif
             </h6>
         </div>
@@ -63,8 +63,8 @@
                     <tbody>
                         @forelse($targets as $target)
                         <tr>
-                            <td>{{ $target->nomor_urut }}</td>
-                            <td>{{ $target->bidang->nama }}</td>
+                            <td class="text-center">{{ $target->nomor_urut }}</td>
+                            <td>{{ $target->bidang->nama_bidang }}</td>
                             <td>{{ $target->judul }}</td>
                             <td>{{ Str::limit($target->deskripsi, 100) }}</td>
                             <td>

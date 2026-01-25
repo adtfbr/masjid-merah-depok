@@ -12,16 +12,18 @@ class Aset extends Model
     protected $table = 'aset';
 
     protected $fillable = [
+        'kategori_id',
         'nama_aset',
-        'kategori',
-        'nilai',
         'kondisi',
-        'lokasi',
     ];
 
-    protected $casts = [
-        'nilai' => 'decimal:2',
-    ];
+    /**
+     * Relasi ke KategoriAset
+     */
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriAset::class, 'kategori_id');
+    }
 
     /**
      * Relasi ke AsetFoto
@@ -34,9 +36,9 @@ class Aset extends Model
     /**
      * Scope filter berdasarkan kategori
      */
-    public function scopeKategori($query, $kategori)
+    public function scopeByKategori($query, $kategoriId)
     {
-        return $query->where('kategori', $kategori);
+        return $query->where('kategori_id', $kategoriId);
     }
 
     /**
@@ -45,14 +47,6 @@ class Aset extends Model
     public function scopeKondisi($query, $kondisi)
     {
         return $query->where('kondisi', $kondisi);
-    }
-
-    /**
-     * Accessor untuk format nilai
-     */
-    public function getNilaiFormatAttribute()
-    {
-        return 'Rp ' . number_format($this->nilai, 0, ',', '.');
     }
 
     /**

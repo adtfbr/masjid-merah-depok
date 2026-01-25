@@ -22,9 +22,10 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="border rounded p-3 {{ $saldo >= 0 ? 'bg-primary' : 'bg-warning' }} bg-opacity-10">
-                    <h6 class="text-muted mb-2">Saldo</h6>
-                    <h3 class="{{ $saldo >= 0 ? 'text-primary' : 'text-warning' }} mb-0">{{ formatRupiah($saldo) }}</h3>
+                <div class="border rounded p-3 {{ $saldoAkhir >= 0 ? 'bg-primary' : 'bg-warning' }} bg-opacity-10">
+                    <h6 class="text-muted mb-2">Saldo Saat Ini</h6>
+                    <h3 class="{{ $saldoAkhir >= 0 ? 'text-primary' : 'text-warning' }} mb-0">{{ formatRupiah($saldoAkhir) }}</h3>
+                    <small class="text-muted">Saldo {{ date('Y') }}</small>
                 </div>
             </div>
         </div>

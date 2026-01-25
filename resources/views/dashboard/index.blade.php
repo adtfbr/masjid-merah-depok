@@ -61,7 +61,7 @@
                     <div>
                         <h6 class="text-muted mb-2">Total Aset</h6>
                         <h2 class="mb-0">{{ $totalAset }}</h2>
-                        <small class="text-muted">{{ formatRupiah($nilaiAset) }}</small>
+                        <small class="text-muted">Item</small>
                     </div>
                     <div class="fs-1 text-warning">
                         <i class="bi bi-box-seam"></i>
@@ -103,11 +103,14 @@
                 <hr>
                 
                 <div class="d-flex justify-content-between">
-                    <span class="fw-bold">Saldo</span>
-                    <span class="fw-bold {{ $saldo >= 0 ? 'text-success' : 'text-danger' }}">
-                        {{ formatRupiah($saldo) }}
+                    <span class="fw-bold">Saldo Saat Ini</span>
+                    <span class="fw-bold {{ $saldoAkhir >= 0 ? 'text-success' : 'text-danger' }}">
+                        {{ formatRupiah($saldoAkhir) }}
                     </span>
                 </div>
+                <small class="text-muted d-block mt-2">
+                    <i class="bi bi-info-circle"></i> Saldo bulan terakhir
+                </small>
             </div>
         </div>
     </div>

@@ -46,14 +46,18 @@
                                     <div class="col-md-6 mb-4">
                                         <div class="card h-100 border-primary">
                                             <div class="card-body">
-                                                <div class="d-flex align-items-center mb-3">
-                                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                                         style="width: 50px; height: 50px; font-weight: bold;">
-                                                        {{ $target->nomor_urut }}
+                                                <div class="d-flex align-items-start mb-3">
+                                                    <div class="flex-shrink-0">
+                                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                                                             style="min-width: 48px; width: 48px; height: 48px; font-weight: bold; font-size: 1.25rem;">
+                                                            {{ $target->nomor_urut }}
+                                                        </div>
                                                     </div>
-                                                    <h5 class="mb-0">{{ $target->judul }}</h5>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h5 class="mb-0">{{ $target->judul }}</h5>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0" style="text-align: justify;">
+                                                <p class="mb-0 ms-0" style="text-align: justify;">
                                                     {{ $target->deskripsi }}
                                                 </p>
                                             </div>

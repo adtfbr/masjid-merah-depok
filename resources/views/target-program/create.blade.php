@@ -24,7 +24,7 @@
                         <option value="">-- Pilih Bidang --</option>
                         @foreach($bidangs as $bidang)
                             <option value="{{ $bidang->id }}" {{ old('bidang_id') == $bidang->id ? 'selected' : '' }}>
-                                {{ $bidang->nama }}
+                                {{ $bidang->nama_bidang }}
                             </option>
                         @endforeach
                     </select>
@@ -39,6 +39,7 @@
                            class="form-control @error('nomor_urut') is-invalid @enderror" 
                            value="{{ old('nomor_urut', 1) }}" 
                            min="1" required>
+                    <small class="form-text text-muted">Nomor urut tampilan (1, 2, 3, ...)</small>
                     @error('nomor_urut')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -49,6 +50,7 @@
                     <input type="text" name="judul" id="judul" 
                            class="form-control @error('judul') is-invalid @enderror" 
                            value="{{ old('judul') }}" required>
+                    <small class="form-text text-muted">Contoh: "Meningkatkan Partisipasi Jamaah"</small>
                     @error('judul')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -59,6 +61,7 @@
                     <textarea name="deskripsi" id="deskripsi" rows="5"
                               class="form-control @error('deskripsi') is-invalid @enderror" 
                               required>{{ old('deskripsi') }}</textarea>
+                    <small class="form-text text-muted">Penjelasan detail tentang target program</small>
                     @error('deskripsi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -76,4 +79,24 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+// Auto-increment nomor urut berdasarkan bidang yang dipilih
+document.getElementById('bidang_id').addEventListener('change', function() {
+    const bidangId = this.value;
+    if (bidangId) {
+        // Get next nomor urut via AJAX
+        fetch(`{{ route('target-program.index') }}?bidang_id=${bidangId}&get_next_urut=1`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.next_urut) {
+                    document.getElementById('nomor_urut').value = data.next_urut;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+</script>
+@endpush
 @endsection

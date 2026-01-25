@@ -28,6 +28,21 @@
                     </div>
                 </div>
                 
+                <div class="row text-center mb-3">
+                    <div class="col-6">
+                        <div class="border rounded p-3">
+                            <h3 class="text-info mb-0">{{ $bidang->programKerja->count() }}</h3>
+                            <small class="text-muted">Program Kerja</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border rounded p-3">
+                            <h3 class="text-warning mb-0">{{ $bidang->targetProgram->count() }}</h3>
+                            <small class="text-muted">Target</small>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="d-flex gap-2">
                     <a href="{{ route('bidang.edit', $bidang) }}" class="btn btn-warning w-100">
                         <i class="bi bi-pencil"></i> Edit
@@ -50,6 +65,69 @@
     </div>
     
     <div class="col-md-8">
+        <!-- Program Kerja & Target Program -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0"><i class="bi bi-list-check"></i> Program Kerja</h6>
+                        <a href="{{ route('bidang-program-kerja.index', ['bidang_id' => $bidang->id]) }}" class="btn btn-sm btn-primary">
+                            Kelola
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @if($bidang->programKerja->count() > 0)
+                        <ol class="mb-0 ps-3">
+                            @foreach($bidang->programKerja->sortBy('nomor_urut') as $program)
+                            <li class="mb-2">
+                                <strong>{{ $program->judul }}</strong>
+                                @if($program->deskripsi)
+                                <br><small class="text-muted">{{ Str::limit($program->deskripsi, 60) }}</small>
+                                @endif
+                            </li>
+                            @endforeach
+                        </ol>
+                        @else
+                        <div class="text-center py-3 text-muted">
+                            <i class="bi bi-list-check fs-3"></i>
+                            <p class="mb-0 small">Belum ada program kerja</p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0"><i class="bi bi-bullseye"></i> Target Program</h6>
+                        <a href="{{ route('target-program.index', ['bidang_id' => $bidang->id]) }}" class="btn btn-sm btn-warning">
+                            Kelola
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @if($bidang->targetProgram->count() > 0)
+                        <ol class="mb-0 ps-3">
+                            @foreach($bidang->targetProgram->sortBy('nomor_urut') as $target)
+                            <li class="mb-2">
+                                <strong>{{ $target->judul }}</strong>
+                                @if($target->deskripsi)
+                                <br><small class="text-muted">{{ Str::limit($target->deskripsi, 60) }}</small>
+                                @endif
+                            </li>
+                            @endforeach
+                        </ol>
+                        @else
+                        <div class="text-center py-3 text-muted">
+                            <i class="bi bi-bullseye fs-3"></i>
+                            <p class="mb-0 small">Belum ada target program</p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Daftar Anggota -->
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">

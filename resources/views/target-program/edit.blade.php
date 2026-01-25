@@ -26,7 +26,7 @@
                         @foreach($bidangs as $bidang)
                             <option value="{{ $bidang->id }}" 
                                 {{ old('bidang_id', $targetProgram->bidang_id) == $bidang->id ? 'selected' : '' }}>
-                                {{ $bidang->nama }}
+                                {{ $bidang->nama_bidang }}
                             </option>
                         @endforeach
                     </select>

@@ -42,8 +42,8 @@
                         </div>
                         <h5>Telepon</h5>
                         <p class="text-muted">
-                            <strong>+62 812-3456-7890</strong><br>
-                            <small>Senin - Jumat: 08:00 - 17:00</small>
+                            <strong>0878 6257 3069</strong><br>
+                            <small>Senin - Ahad: 08:00 - 17:00</small>
                         </p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         </div>
                         <h5>Email</h5>
                         <p class="text-muted">
-                            <strong>info@masjid.com</strong><br>
+                            <strong>masjidmerahcikumpa@gmail.com</strong><br>
                             <small>Kami akan membalas dalam 1x24 jam</small>
                         </p>
                     </div>
@@ -123,10 +123,10 @@
             <h4 class="mb-3">Ikuti Kami di Media Sosial</h4>
             <div class="d-flex justify-content-center gap-3">
                 <a href="#" class="btn btn-primary btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
-                    <i class="bi bi-facebook"></i>
+                    <i class="bi bi-youtube"></i>
                 </a>
                 <a href="#" class="btn btn-info btn-lg rounded-circle text-white" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
-                    <i class="bi bi-twitter"></i>
+                    <i class="bi bi-tiktok"></i>
                 </a>
                 <a href="#" class="btn btn-danger btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                     <i class="bi bi-instagram"></i>

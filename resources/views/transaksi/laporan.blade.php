@@ -26,7 +26,7 @@
         <div class="row text-center">
             <div class="col-md-4"><div class="border rounded p-3 bg-success bg-opacity-10"><h6>Pemasukan</h6><h3 class="text-success">{{ formatRupiah($totalPemasukan) }}</h3></div></div>
             <div class="col-md-4"><div class="border rounded p-3 bg-danger bg-opacity-10"><h6>Pengeluaran</h6><h3 class="text-danger">{{ formatRupiah($totalPengeluaran) }}</h3></div></div>
-            <div class="col-md-4"><div class="border rounded p-3 bg-primary bg-opacity-10"><h6>Saldo</h6><h3 class="{{ $saldo >= 0 ? 'text-primary' : 'text-warning' }}">{{ formatRupiah($saldo) }}</h3></div></div>
+            <div class="col-md-4"><div class="border rounded p-3 bg-primary bg-opacity-10"><h6>Selisih</h6><h3 class="{{ $saldo >= 0 ? 'text-primary' : 'text-warning' }}">{{ formatRupiah($saldo) }}</h3><small class="text-muted">Periode ini</small></div></div>
         </div>
     </div>
 </div>

@@ -19,8 +19,10 @@
                         <th width="5%">No</th>
                         <th>Nama Bidang</th>
                         <th>Deskripsi</th>
-                        <th width="10%" class="text-center">Anggota</th>
-                        <th width="10%" class="text-center">Kegiatan</th>
+                        <th width="8%" class="text-center">Anggota</th>
+                        <th width="8%" class="text-center">Kegiatan</th>
+                        <th width="8%" class="text-center">Program</th>
+                        <th width="8%" class="text-center">Target</th>
                         <th width="15%" class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -37,10 +39,22 @@
                             </small>
                         </td>
                         <td class="text-center">
-                            <span class="badge bg-info">{{ $bidang->anggota_count }} orang</span>
+                            <span class="badge bg-info">{{ $bidang->anggota_count }}</span>
                         </td>
                         <td class="text-center">
-                            <span class="badge bg-success">{{ $bidang->kegiatan_count }} kegiatan</span>
+                            <span class="badge bg-success">{{ $bidang->kegiatan_count }}</span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('bidang-program-kerja.index', ['bidang_id' => $bidang->id]) }}" 
+                               class="badge bg-primary text-decoration-none" title="Lihat Program Kerja">
+                                {{ $bidang->program_kerja_count }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('target-program.index', ['bidang_id' => $bidang->id]) }}" 
+                               class="badge bg-warning text-decoration-none" title="Lihat Target Program">
+                                {{ $bidang->target_program_count }}
+                            </a>
                         </td>
                         <td class="text-center">
                             <div class="btn-group" role="group">

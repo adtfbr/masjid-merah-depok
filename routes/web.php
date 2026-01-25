@@ -16,6 +16,7 @@ use App\Http\Controllers\StrukturGambarController;
 use App\Http\Controllers\TargetKesekretariatanController;
 use App\Http\Controllers\BidangProgramKerjaController;
 use App\Http\Controllers\TargetProgramController;
+use App\Http\Controllers\KategoriAsetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::get('/organisasi', [PublicController::class, 'organisasi'])->name('public
 Route::get('/kegiatan-masjid', [PublicController::class, 'kegiatan'])->name('public.kegiatan');
 Route::get('/kegiatan-masjid/{id}', [PublicController::class, 'kegiatanDetail'])->name('public.kegiatan.detail');
 Route::get('/aset', [PublicController::class, 'aset'])->name('public.aset');
+Route::get('/aset/kategori/{id}', [PublicController::class, 'asetKategori'])->name('public.aset.kategori');
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +100,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Aset
     Route::resource('aset', AsetController::class);
-    Route::delete('aset-foto/{id}', [AsetController::class, 'deleteFoto'])->name('aset.foto.delete');
+
+    // Kategori Aset
+    Route::resource('kategori-aset', KategoriAsetController::class);
 
     // Activity Log
     Route::get('activity-log', [ActivityLogController::class, 'index'])->name('activity-log.index');
@@ -106,7 +110,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('activity-log/clear', [ActivityLogController::class, 'clear'])->name('activity-log.clear');
 
     // ========== NEW ROUTES - PHASE 2 ==========
-    
+
     // Pengurus Inti
     Route::resource('pengurus-inti', PengurusIntiController::class);
 

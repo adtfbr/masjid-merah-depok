@@ -30,7 +30,7 @@
                     <option value="">-- Semua Bidang --</option>
                     @foreach($bidangs as $bidang)
                         <option value="{{ $bidang->id }}" {{ $bidangId == $bidang->id ? 'selected' : '' }}>
-                            {{ $bidang->nama }}
+                            {{ $bidang->nama_bidang }}
                         </option>
                     @endforeach
                 </select>
@@ -44,7 +44,7 @@
             <h6 class="m-0 font-weight-bold text-primary">
                 Daftar Program Kerja
                 @if($bidangId)
-                    - {{ $bidangs->find($bidangId)->nama ?? '' }}
+                    - {{ $bidangs->find($bidangId)->nama_bidang ?? '' }}
                 @endif
             </h6>
         </div>
@@ -64,9 +64,9 @@
                         @forelse($programs as $index => $program)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $program->bidang->nama }}</td>
+                            <td>{{ $program->bidang->nama_bidang }}</td>
                             <td>{{ $program->judul }}</td>
-                            <td>{{ $program->urutan }}</td>
+                            <td class="text-center">{{ $program->nomor_urut }}</td>
                             <td>
                                 <a href="{{ route('bidang-program-kerja.edit', $program) }}" 
                                    class="btn btn-sm btn-warning">

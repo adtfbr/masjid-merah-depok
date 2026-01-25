@@ -27,19 +27,36 @@ class DashboardController extends Controller
         // Kegiatan aktif
         $kegiatanAktif = Kegiatan::aktif()->count();
 
-        // Keuangan
+        // Keuangan tahun ini
+        $currentYear = date('Y');
         $totalPemasukan = TransaksiKeuangan::pemasukan()
-            ->whereYear('tanggal', date('Y'))
+            ->whereYear('tanggal', $currentYear)
             ->sum('jumlah');
         
         $totalPengeluaran = TransaksiKeuangan::pengeluaran()
-            ->whereYear('tanggal', date('Y'))
+            ->whereYear('tanggal', $currentYear)
             ->sum('jumlah');
         
-        $saldo = $totalPemasukan - $totalPengeluaran;
+        // Hitung saldo bulan terakhir yang ada transaksi
+        $saldoAkhir = 0;
+        for ($month = 1; $month <= 12; $month++) {
+            $pemasukan = TransaksiKeuangan::pemasukan()
+                ->whereYear('tanggal', $currentYear)
+                ->whereMonth('tanggal', $month)
+                ->sum('jumlah');
+            
+            $pengeluaran = TransaksiKeuangan::pengeluaran()
+                ->whereYear('tanggal', $currentYear)
+                ->whereMonth('tanggal', $month)
+                ->sum('jumlah');
+            
+            if ($pemasukan > 0 || $pengeluaran > 0) {
+                $saldoAkhir = $pemasukan - $pengeluaran;
+            }
+        }
 
-        // Nilai total aset
-        $nilaiAset = Aset::sum('nilai');
+        // Nilai total aset - Removed (no longer have nilai column)
+        $nilaiAset = 0;
 
         // Kegiatan terbaru
         $kegiatanTerbaru = Kegiatan::with('bidang')
@@ -70,7 +87,7 @@ class DashboardController extends Controller
             'kegiatanAktif',
             'totalPemasukan',
             'totalPengeluaran',
-            'saldo',
+            'saldoAkhir',
             'nilaiAset',
             'kegiatanTerbaru',
             'transaksiTerbaru',

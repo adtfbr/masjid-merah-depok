@@ -3,25 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
+use App\Models\KategoriAset;
 use App\Models\AsetFoto;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class AsetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $query = Aset::withCount('foto');
+        $query = Aset::with('kategori')->withCount('foto');
 
         // Filter berdasarkan kategori
-        if ($request->filled('kategori')) {
-            $query->kategori($request->kategori);
+        if ($request->filled('kategori_id')) {
+            $query->byKategori($request->kategori_id);
         }
 
         // Filter berdasarkan kondisi
@@ -35,203 +32,78 @@ class AsetController extends Controller
         }
 
         $asets = $query->latest()->paginate(15);
+        $kategoris = KategoriAset::orderBy('nama_kategori')->get();
 
-        // Total nilai aset
-        $totalNilai = Aset::sum('nilai');
-
-        return view('aset.index', compact('asets', 'totalNilai'));
+        return view('aset.index', compact('asets', 'kategoris'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('aset.create');
+        $kategoris = KategoriAset::orderBy('nama_kategori')->get();
+        return view('aset.create', compact('kategoris'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategori_aset,id',
             'nama_aset' => 'required|string|max:200',
-            'kategori' => 'required|string|max:100',
-            'nilai' => 'required|numeric|min:0',
-            'kondisi' => 'required|string|max:100',
-            'lokasi' => 'required|string|max:200',
-            'foto' => 'nullable|array',
-            'foto.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'kondisi' => 'required|in:Baik,Cukup,Rusak',
         ]);
 
-        DB::beginTransaction();
-        try {
-            $aset = Aset::create($validated);
+        $aset = Aset::create($validated);
 
-            // Upload foto
-            if ($request->hasFile('foto')) {
-                foreach ($request->file('foto') as $file) {
-                    $path = $file->store('aset', 'public');
-                    AsetFoto::create([
-                        'aset_id' => $aset->id,
-                        'foto' => $path,
-                    ]);
-                }
-            }
+        ActivityLog::log("Menambahkan aset: {$aset->nama_aset}");
 
-            ActivityLog::log("Menambahkan aset: {$aset->nama_aset}");
-
-            DB::commit();
-
-            return redirect()->route('aset.index')
-                ->with('success', 'Aset berhasil ditambahkan.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withInput()
-                ->with('error', 'Gagal menambahkan aset: ' . $e->getMessage());
-        }
+        return redirect()->route('aset.index')
+            ->with('success', 'Aset berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Aset $aset)
     {
-        $aset->load('foto');
+        $aset->load(['kategori', 'foto']);
         return view('aset.show', compact('aset'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Aset $aset)
     {
-        $aset->load('foto');
-        return view('aset.edit', compact('aset'));
+        $kategoris = KategoriAset::orderBy('nama_kategori')->get();
+        return view('aset.edit', compact('aset', 'kategoris'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Aset $aset)
     {
-        // Log untuk debugging
-        Log::info('Update Aset Request', [
-            'aset_id' => $aset->id,
-            'request_data' => $request->except('_token', '_method', 'foto')
-        ]);
-
-        // Validasi input
-        $request->validate([
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategori_aset,id',
             'nama_aset' => 'required|string|max:200',
-            'kategori' => 'required|string|max:100',
-            'nilai' => 'required|numeric|min:0',
             'kondisi' => 'required|in:Baik,Cukup,Rusak',
-            'lokasi' => 'required|string|max:200',
-            'foto' => 'nullable|array',
-            'foto.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        DB::beginTransaction();
-        try {
-            // Update data aset dengan raw values
-            $updated = $aset->update([
-                'nama_aset' => $request->input('nama_aset'),
-                'kategori' => $request->input('kategori'),
-                'nilai' => (float) $request->input('nilai'),
-                'kondisi' => $request->input('kondisi'),
-                'lokasi' => $request->input('lokasi'),
-            ]);
+        $aset->update($validated);
 
-            Log::info('Aset Update Result', [
-                'success' => $updated,
-                'aset_data' => $aset->fresh()->toArray()
-            ]);
+        ActivityLog::log("Mengubah aset: {$aset->nama_aset}");
 
-            // Upload foto baru jika ada
-            if ($request->hasFile('foto')) {
-                foreach ($request->file('foto') as $file) {
-                    $path = $file->store('aset', 'public');
-                    AsetFoto::create([
-                        'aset_id' => $aset->id,
-                        'foto' => $path,
-                    ]);
-                }
-            }
-
-            ActivityLog::log("Mengubah aset: {$aset->nama_aset}");
-
-            DB::commit();
-
-            return redirect()->route('aset.index')
-                ->with('success', 'Aset berhasil diperbarui.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            
-            Log::error('Aset Update Error', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            
-            return redirect()->route('aset.edit', $aset)
-                ->withInput()
-                ->with('error', 'Gagal memperbarui aset: ' . $e->getMessage());
-        }
+        return redirect()->route('aset.index')
+            ->with('success', 'Aset berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Aset $aset)
     {
         $nama = $aset->nama_aset;
-
-        DB::beginTransaction();
-        try {
-            // Hapus semua foto
-            foreach ($aset->foto as $foto) {
-                if (Storage::disk('public')->exists($foto->foto)) {
-                    Storage::disk('public')->delete($foto->foto);
-                }
-            }
-
-            $aset->delete();
-
-            ActivityLog::log("Menghapus aset: {$nama}");
-
-            DB::commit();
-
-            return redirect()->route('aset.index')
-                ->with('success', 'Aset berhasil dihapus.');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', 'Gagal menghapus aset: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Hapus foto aset
-     */
-    public function deleteFoto($id)
-    {
-        try {
-            $foto = AsetFoto::findOrFail($id);
-            
-            // Hapus file dari storage jika ada
-            if (Storage::disk('public')->exists($foto->foto)) {
+        
+        // Delete all photos
+        foreach ($aset->foto as $foto) {
+            if ($foto->foto) {
                 Storage::disk('public')->delete($foto->foto);
             }
-            
             $foto->delete();
-
-            return back()->with('success', 'Foto berhasil dihapus.');
-            
-        } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menghapus foto: ' . $e->getMessage());
         }
+
+        $aset->delete();
+
+        ActivityLog::log("Menghapus aset: {$nama}");
+
+        return redirect()->route('aset.index')
+            ->with('success', 'Aset berhasil dihapus.');
     }
 }

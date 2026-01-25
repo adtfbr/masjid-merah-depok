@@ -13,6 +13,7 @@ use App\Models\StrukturGambar;
 use App\Models\TargetKesekretariatan;
 use App\Models\BidangProgramKerja;
 use App\Models\TargetProgram;
+use App\Models\KategoriAset;
 
 class PublicController extends Controller
 {
@@ -85,11 +86,11 @@ class PublicController extends Controller
         $totalPengeluaran = TransaksiKeuangan::pengeluaran()
             ->whereYear('tanggal', $year)
             ->sum('jumlah');
-        
-        $saldo = $totalPemasukan - $totalPengeluaran;
 
-        // Transaksi per bulan
+        // Transaksi per bulan - saldo adalah selisih per bulan (tidak akumulatif)
         $transaksiPerBulan = [];
+        $saldoAkhir = 0;
+        
         for ($month = 1; $month <= 12; $month++) {
             $pemasukan = TransaksiKeuangan::pemasukan()
                 ->whereYear('tanggal', $year)
@@ -101,10 +102,19 @@ class PublicController extends Controller
                 ->whereMonth('tanggal', $month)
                 ->sum('jumlah');
 
+            // Saldo bulan ini = pemasukan - pengeluaran (sudah termasuk saldo bulan lalu dalam pemasukan)
+            $saldoBulanIni = $pemasukan - $pengeluaran;
+            
+            // Update saldo akhir hanya jika ada transaksi di bulan ini
+            if ($pemasukan > 0 || $pengeluaran > 0) {
+                $saldoAkhir = $saldoBulanIni;
+            }
+
             $transaksiPerBulan[] = [
                 'bulan' => date('M', mktime(0, 0, 0, $month, 1)),
                 'pemasukan' => $pemasukan,
                 'pengeluaran' => $pengeluaran,
+                'saldo' => $saldoBulanIni, // Saldo bulan ini (bukan running total)
             ];
         }
 
@@ -123,7 +133,7 @@ class PublicController extends Controller
         return view('public.keuangan', compact(
             'totalPemasukan',
             'totalPengeluaran',
-            'saldo',
+            'saldoAkhir', // Saldo bulan terakhir yang ada transaksi
             'transaksiPerBulan',
             'year',
             'years'
@@ -136,21 +146,6 @@ class PublicController extends Controller
     public function kontak()
     {
         return view('public.kontak');
-    }
-
-    /**
-     * Halaman Aset
-     */
-    public function aset()
-    {
-        $asets = Aset::with('foto')
-            ->orderBy('nama_aset')
-            ->paginate(12);
-
-        $totalNilaiAset = Aset::sum('nilai');
-        $totalAset = Aset::count();
-
-        return view('public.aset', compact('asets', 'totalNilaiAset', 'totalAset'));
     }
 
     // ==================== NEW METHODS FOR RESTRUCTURED NAVIGATION ====================
@@ -318,5 +313,25 @@ class PublicController extends Controller
         }])->get();
 
         return view('public.proker.target', compact('bidangs'));
+    }
+
+    /**
+     * Halaman Aset - Tampilkan Kategori
+     */
+    public function aset()
+    {
+        $kategoris = KategoriAset::withCount('aset')->get();
+        return view('public.aset', compact('kategoris'));
+    }
+
+    /**
+     * Halaman Detail Kategori Aset
+     */
+    public function asetKategori($id)
+    {
+        $kategori = KategoriAset::with(['aset' => function($query) {
+            $query->orderBy('nama_aset');
+        }])->findOrFail($id);
+        return view('public.aset-kategori', compact('kategori'));
     }
 }

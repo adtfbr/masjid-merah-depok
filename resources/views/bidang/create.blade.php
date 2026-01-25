@@ -29,6 +29,9 @@
                         @error('deskripsi')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        <div class="form-text">
+                            <i class="bi bi-info-circle"></i> Setelah bidang dibuat, Anda dapat menambahkan Program Kerja dan Target Program melalui menu di sidebar.
+                        </div>
                     </div>
                     
                     <div class="d-flex gap-2">
@@ -41,6 +44,16 @@
                     </div>
                 </form>
             </div>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="alert alert-info mt-3">
+            <h6 class="alert-heading"><i class="bi bi-lightbulb"></i> Langkah Selanjutnya</h6>
+            <p class="mb-0">Setelah membuat bidang, Anda dapat:</p>
+            <ul class="mb-0 mt-2">
+                <li>Menambahkan <strong>Program Kerja Bidang</strong> melalui menu <i class="bi bi-arrow-right"></i> <strong>Program Kerja Bidang</strong></li>
+                <li>Menambahkan <strong>Target Program</strong> melalui menu <i class="bi bi-arrow-right"></i> <strong>Target Program</strong></li>
+            </ul>
         </div>
     </div>
 </div>

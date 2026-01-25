@@ -16,6 +16,15 @@ class BidangProgramKerjaController extends Controller
         $bidangId = $request->get('bidang_id');
         $bidangs = Bidang::all();
         
+        // Handle AJAX request for next urut
+        if ($request->get('get_next_urut')) {
+            if ($bidangId) {
+                $maxUrut = BidangProgramKerja::where('bidang_id', $bidangId)->max('nomor_urut');
+                return response()->json(['next_urut' => ($maxUrut ?? 0) + 1]);
+            }
+            return response()->json(['next_urut' => 1]);
+        }
+        
         $query = BidangProgramKerja::with('bidang')->ordered();
         
         if ($bidangId) {
@@ -44,7 +53,8 @@ class BidangProgramKerjaController extends Controller
         $validated = $request->validate([
             'bidang_id' => 'required|exists:bidangs,id',
             'judul' => 'required|string',
-            'urutan' => 'required|integer|min:0'
+            'deskripsi' => 'nullable|string',
+            'nomor_urut' => 'required|integer|min:1'
         ]);
 
         BidangProgramKerja::create($validated);
@@ -78,7 +88,8 @@ class BidangProgramKerjaController extends Controller
         $validated = $request->validate([
             'bidang_id' => 'required|exists:bidangs,id',
             'judul' => 'required|string',
-            'urutan' => 'required|integer|min:0'
+            'deskripsi' => 'nullable|string',
+            'nomor_urut' => 'required|integer|min:1'
         ]);
 
         $bidangProgramKerja->update($validated);

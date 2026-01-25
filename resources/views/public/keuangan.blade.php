@@ -49,7 +49,7 @@
             <div class="col-md-4">
                 <div class="stat-item" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white;">
                     <i class="bi bi-wallet2 text-white"></i>
-                    <h3 class="text-white {{ $saldo < 0 ? 'text-warning' : '' }}">{{ formatRupiah($saldo) }}</h3>
+                    <h3 class="text-white {{ $saldoAkhir < 0 ? 'text-warning' : '' }}">{{ formatRupiah($saldoAkhir) }}</h3>
                     <p class="text-white mb-0">Saldo {{ $year }}</p>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                                 <th>Bulan</th>
                                 <th class="text-end">Pemasukan</th>
                                 <th class="text-end">Pengeluaran</th>
-                                <th class="text-end">Selisih</th>
+                                <th class="text-end">Saldo Saat Ini</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,8 +87,8 @@
                                 <td>{{ $item['bulan'] }} {{ $year }}</td>
                                 <td class="text-end text-success">{{ formatRupiah($item['pemasukan']) }}</td>
                                 <td class="text-end text-danger">{{ formatRupiah($item['pengeluaran']) }}</td>
-                                <td class="text-end fw-bold {{ ($item['pemasukan'] - $item['pengeluaran']) >= 0 ? 'text-primary' : 'text-warning' }}">
-                                    {{ formatRupiah($item['pemasukan'] - $item['pengeluaran']) }}
+                                <td class="text-end fw-bold {{ $item['saldo'] >= 0 ? 'text-primary' : 'text-warning' }}">
+                                    {{ formatRupiah($item['saldo']) }}
                                 </td>
                             </tr>
                             @endforeach
@@ -98,6 +98,11 @@
                                 <td>TOTAL</td>
                                 <td class="text-end text-success">{{ formatRupiah($totalPemasukan) }}</td>
                                 <td class="text-end text-danger">{{ formatRupiah($totalPengeluaran) }}</td>
+                                <td class="text-end text-primary">{{ formatRupiah($saldoAkhir) }}</td>
+                            </tr>
+                            <tr class="table-info">
+                                <td colspan="3" class="text-end">Saldo Saat Ini (Bulan Terakhir):</td>
+                                <td class="text-end text-primary">{{ formatRupiah($saldoAkhir) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -106,7 +111,12 @@
         </div>
 
         <div class="alert alert-info mt-4">
-            <i class="bi bi-info-circle"></i> <strong>Catatan:</strong> Data keuangan ini dipublikasikan untuk transparansi dan akuntabilitas pengelolaan keuangan masjid.
+            <i class="bi bi-info-circle"></i> <strong>Catatan:</strong> 
+            <ul class="mb-0 mt-2">
+                <li>Saldo Saat Ini adalah saldo keuangan yayasan pada bulan terakhir yang memiliki transaksi</li>
+                <li>Kolom "Saldo Saat Ini" menunjukkan saldo running/berjalan per bulan</li>
+                <li>Data keuangan ini dipublikasikan untuk transparansi dan akuntabilitas pengelolaan keuangan masjid</li>
+            </ul>
         </div>
     </div>
 </section>

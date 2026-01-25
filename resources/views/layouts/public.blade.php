@@ -33,21 +33,27 @@
         .navbar-public {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1rem 0;
+            padding: 0.75rem 0;
         }
 
         .navbar-brand {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: var(--primary) !important;
             display: flex;
             align-items: center;
             gap: 10px;
+            white-space: nowrap;
         }
 
         .navbar-brand img {
-            height: 40px;
+            height: 35px;
             width: auto;
+            flex-shrink: 0;
+        }
+
+        .navbar-brand span {
+            display: inline-block;
         }
 
         .navbar-nav .nav-link {
@@ -172,13 +178,52 @@
         }
 
         .card-modern:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .card-modern img {
             height: 200px;
             object-fit: cover;
+        }
+
+        /* ===============================
+           BAGAN STRUKTUR PENGURUS
+           =============================== */
+
+        .bagan-card {
+            width: 260px;
+            text-align: center;
+            position: relative;
+        }
+
+        .bagan-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border: 4px solid #7bbbbb;
+            border-radius: 14px;
+            background: #f0f0f0;
+        }
+
+        .bagan-label {
+            background: #006b7f;
+            color: #fff;
+            padding: 14px 12px;
+            margin-top: -22px;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+        }
+
+        .bagan-label h5 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .bagan-label p {
+            margin: 6px 0 0;
+            font-size: 13px;
+            line-height: 1.3;
         }
 
         /* Stats */
@@ -210,15 +255,26 @@
 
         /* Footer */
         .footer {
-        background: #1e293b;
-        color: white;
-        padding: 50px 0 20px;
+            background: #1e293b;
+            color: white;
+            padding: 50px 0 20px;
         }
 
         .footer h5 {
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer h5 img {
+            height: 35px;
+            width: auto;
+            flex-shrink: 0;
         }
 
         .footer a {
@@ -299,6 +355,80 @@
             .section-title h2 {
                 font-size: 1.75rem;
             }
+
+            /* Navbar Mobile */
+            .navbar-brand {
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+
+            .navbar-brand img {
+                height: 30px;
+            }
+
+            .navbar-brand span {
+                line-height: 1.2;
+                max-width: 200px;
+            }
+
+            .navbar-public {
+                padding: 0.5rem 0;
+            }
+
+            /* Footer Mobile */
+            .footer h5 {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            .footer h5 img {
+                height: 30px;
+            }
+
+            .footer {
+                padding: 30px 0 15px;
+            }
+
+            .footer p,
+            .footer li {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            /* Extra small devices */
+            .navbar-brand {
+                font-size: 0.75rem;
+                gap: 6px;
+            }
+
+            .navbar-brand img {
+                height: 25px;
+            }
+
+            .navbar-brand span {
+                max-width: 160px;
+                word-break: break-word;
+            }
+
+            .footer h5 {
+                font-size: 0.85rem;
+            }
+
+            .footer h5 img {
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            /* Very small devices */
+            .navbar-brand {
+                font-size: 0.7rem;
+            }
+
+            .navbar-brand span {
+                max-width: 140px;
+            }
         }
     </style>
 
@@ -340,7 +470,7 @@
                             Manajemen Utama
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarManajemen">
-                            <li><a class="dropdown-item" href="{{ route('public.manajemen.kesekretariatan') }}">Kesekretariatan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('public.manajemen.kesekretariatan') }}">Dewan Pengurus Harian</a></li>
                             <li><a class="dropdown-item" href="{{ route('public.keuangan') }}">Keuangan</a></li>
                         </ul>
                     </li>
@@ -393,9 +523,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5>
-                        <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid" style="height: 40px; width: auto; margin-right: 10px; vertical-align: middle;">
-                        MASJID MERAH BAITURRAHMAN
+                    <h5 class="d-flex align-items-center flex-wrap">
+                        <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid" class="me-2">
+                        <span>MASJID MERAH BAITURRAHMAN</span>
                     </h5>
                     <p class="text-white-50">
                         Sistem Informasi Manajemen Masjid untuk transparansi dan kemudahan akses informasi bagi jamaah.
@@ -415,11 +545,13 @@
                 <div class="col-md-4 mb-4">
                     <h5>Kontak</h5>
                     <ul class="list-unstyled text-white-50">
-                        <li class="mb-2"><i class="bi bi-geo-alt"></i>Jl. Tole Iskandar No.KM. 3<br>
-                            Mekar Jaya, Kec. Sukmajaya, Kota Depok<br>
-                            Jawa Barat 16411</li>
-                        <li class="mb-2"><i class="bi bi-telephone"></i> +62 812-3456-7890</li>
-                        <li class="mb-2"><i class="bi bi-envelope"></i> info@masjid.com</li>
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt"></i> Jl. Tole Iskandar No.KM. 3<br>
+                            <span>Mekar Jaya, Kec. Sukmajaya, Kota Depok
+                            <br>Jawa Barat 16411</span>
+                        </li>
+                        <li class="mb-2"><i class="bi bi-telephone"></i> 0878 6257 3069</li>
+                        <li class="mb-2"><i class="bi bi-envelope"></i> masjidmerahcikumpa@gmail.com</li>
                     </ul>
                 </div>
             </div>

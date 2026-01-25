@@ -16,6 +16,15 @@ class TargetProgramController extends Controller
         $bidangId = $request->get('bidang_id');
         $bidangs = Bidang::all();
         
+        // Handle AJAX request for next nomor urut
+        if ($request->get('get_next_urut')) {
+            if ($bidangId) {
+                $maxUrut = TargetProgram::where('bidang_id', $bidangId)->max('nomor_urut');
+                return response()->json(['next_urut' => ($maxUrut ?? 0) + 1]);
+            }
+            return response()->json(['next_urut' => 1]);
+        }
+        
         $query = TargetProgram::with('bidang')->ordered();
         
         if ($bidangId) {

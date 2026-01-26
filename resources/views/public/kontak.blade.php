@@ -122,16 +122,16 @@
         <div class="text-center mt-5">
             <h4 class="mb-3">Ikuti Kami di Media Sosial</h4>
             <div class="d-flex justify-content-center gap-3">
-                <a href="#" class="btn btn-primary btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                <a href="http://www.youtube.com/@masjidmerah.official" class="btn btn-primary btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                     <i class="bi bi-youtube"></i>
                 </a>
-                <a href="#" class="btn btn-info btn-lg rounded-circle text-white" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                <a href="https://www.tiktok.com/@remasbara.official?_r=1&_t=ZS-93OX2xuay8q" class="btn btn-info btn-lg rounded-circle text-white" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                     <i class="bi bi-tiktok"></i>
                 </a>
-                <a href="#" class="btn btn-danger btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                <a href="https://www.instagram.com/masjidmerahcikumpa.official?igsh=b2xsd3gybGU1bTVn" class="btn btn-danger btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                     <i class="bi bi-instagram"></i>
                 </a>
-                <a href="#" class="btn btn-success btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                <a href="https://wa.me/6287862573069" class="btn btn-success btn-lg rounded-circle" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                     <i class="bi bi-whatsapp"></i>
                 </a>
             </div>

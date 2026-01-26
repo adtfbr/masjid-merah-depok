@@ -107,8 +107,8 @@
 </section>
 
 <!-- CTA Section -->
-<section class="section" style="background: linear-gradient(135deg, #A0293A 0%, #8B2332 100%); color: white;">
-    <div class="container text-center">
+<section class="cta-section">
+    <div class="container">
         <h2 class="mb-4">Mari Bergabung Bersama Kami</h2>
         <p class="lead mb-4">Ikuti kegiatan-kegiatan masjid dan berkontribusi untuk kemajuan umat</p>
         <a href="{{ route('public.kontak') }}" class="btn btn-light btn-lg">

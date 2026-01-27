@@ -6,9 +6,9 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid" class="hero-logo">
-        <h1>Sistem Informasi Manajemen</h1>
-        <div class="hero-subtitle">Masjid Merah Baiturrahman</div>
+        <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid Merah Baiturrahman" class="hero-logo">
+        <h1>Masjid Merah Baiturrahman</h1>
+        <div class="hero-subtitle" style="font-size: 48px; font-family: 'Gotham', sans-serif;">Sistem Informasi Manajemen</div>
         <p>"Menjadi yayasan Islam profesional dan terpercaya yang melayani umat di bidang keagamaan dan sosial, dengan fokus pada pembentukan Sumber Daya Manusia (SDM) yang berakhlak mulia"</p>
         <div class="mt-4">
             <a href="{{ route('public.kegiatan') }}" class="btn btn-light btn-lg me-2">
@@ -54,7 +54,7 @@
 <section class="section">
     <div class="container">
         <div class="section-title">
-            <h2><i class="bi bi-calendar-event"></i> Kegiatan Berjalan</h2>
+            <h2>Kegiatan Berjalan</h2>
             <p>Ikuti berbagai kegiatan masjid kami</p>
         </div>
 
@@ -63,7 +63,7 @@
             <div class="col-md-4">
                 <div class="card card-modern h-100">
                     @if($kegiatan->foto->count() > 0)
-                    <img src="{{ asset('storage/' . $kegiatan->foto->first()->foto) }}" class="card-img-top" alt="{{ $kegiatan->nama_kegiatan }}">
+                    <img src="{{ asset('storage/' . $kegiatan->foto->first()->foto) }}" class="card-img-top" alt="{{ generateAltText($kegiatan->nama_kegiatan, 'Dokumentasi Kegiatan') }}">
                     @else
                     <div class="card-img-top bg-gradient d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, #A0293A 0%, #C5A572 100%);">
                         <i class="bi bi-calendar-event text-white" style="font-size: 4rem;"></i>
@@ -76,14 +76,14 @@
                                 {{ $kegiatan->status }}
                             </span>
                         </div>
-                        <h5 class="card-title">{{ $kegiatan->nama_kegiatan }}</h5>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 600;">{{ $kegiatan->nama_kegiatan }}</h3>
                         <p class="card-text text-muted">
                             <small>
                                 <i class="bi bi-calendar"></i> {{ formatTanggal($kegiatan->tanggal_mulai) }}<br>
                                 <i class="bi bi-geo-alt"></i> {{ $kegiatan->lokasi }}
                             </small>
                         </p>
-                        <a href="{{ route('public.kegiatan.detail', $kegiatan->id) }}" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ route('public.kegiatan.detail', $kegiatan->slug) }}" class="btn btn-outline-primary btn-sm">
                             <i class="bi bi-eye"></i> Lihat Detail
                         </a>
                     </div>

@@ -63,11 +63,9 @@ class PublicController extends Controller
     /**
      * Detail Kegiatan
      */
-    public function kegiatanDetail($id)
+    public function kegiatanDetail(Kegiatan $kegiatan)
     {
-        $kegiatan = Kegiatan::with(['bidang', 'anggota', 'foto'])
-            ->findOrFail($id);
-
+        $kegiatan->load(['bidang', 'anggota', 'foto']);
         return view('public.kegiatan-detail', compact('kegiatan'));
     }
 
@@ -234,18 +232,17 @@ class PublicController extends Controller
     /**
      * Show Bidang Detail (Dynamic)
      */
-    public function showBidang($id)
+    public function showBidang(Bidang $bidang)
     {
-        $bidang = Bidang::findOrFail($id);
 
         // Get Ketua Bidang
-        $ketuaBidang = AnggotaBidang::where('bidang_id', $id)
+        $ketuaBidang = AnggotaBidang::where('bidang_id', $bidang->id)
             ->ketuaBidang()
             ->ordered()
             ->first();
 
         // Get Anggota grouped by Seksi
-        $anggotaBySeksi = AnggotaBidang::where('bidang_id', $id)
+        $anggotaBySeksi = AnggotaBidang::where('bidang_id', $bidang->id)
             ->whereNotNull('seksi')
             ->where('seksi', '!=', '')
             ->ordered()
@@ -253,10 +250,10 @@ class PublicController extends Controller
             ->groupBy('seksi');
 
         // Get Program Kerja for this bidang
-        $programKerja = BidangProgramKerja::where('bidang_id', $id)->ordered()->get();
+        $programKerja = BidangProgramKerja::where('bidang_id', $bidang->id)->ordered()->get();
 
         // Get Target Program for this bidang
-        $targetProgram = TargetProgram::where('bidang_id', $id)->ordered()->get();
+        $targetProgram = TargetProgram::where('bidang_id', $bidang->id)->ordered()->get();
 
         return view('public.bidang.show', compact(
             'bidang', 

@@ -1,17 +1,23 @@
 @extends('layouts.public')
 
-@section('title', $kegiatan->nama_kegiatan)
+@section('meta_title', $kegiatan->nama_kegiatan . ' - Masjid Merah Baiturrahman')
+@section('meta_description', $kegiatan->meta_description)
+@section('meta_keywords', 'kegiatan masjid, ' . strtolower($kegiatan->bidang->nama_bidang) . ', ' . strtolower($kegiatan->nama_kegiatan) . ', masjid merah baiturrahman')
+@section('canonical_url', route('public.kegiatan.detail', $kegiatan->slug))
+
+@section('og_title', $kegiatan->nama_kegiatan)
+@section('og_description', $kegiatan->meta_description)
+@section('og_type', 'article')
+@section('og_url', route('public.kegiatan.detail', $kegiatan->slug))
+@section('og_image', $kegiatan->og_image)
+
+@section('twitter_title', $kegiatan->nama_kegiatan)
+@section('twitter_description', $kegiatan->meta_description)
+@section('twitter_image', $kegiatan->og_image)
 
 @section('content')
-<!-- Hero Section dengan Background Masjid -->
-<div class="hero-section" style="
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url('{{ asset('images/hero-masjid.jpg') }}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    padding: 100px 0 60px 0;
-    color: white;
-">
+{{-- Hero Section --}}
+<div class="hero-section" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('images/hero-masjid.jpg') }}'); background-size: cover; background-position: center; background-attachment: fixed; padding: 100px 0 60px 0; color: white;">
     <div class="container">
         <h1 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">{{ $kegiatan->nama_kegiatan }}</h1>
         <p style="font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
@@ -44,7 +50,7 @@
                     </div>
                 </div>
 
-                <!-- Galeri Foto -->
+                {{-- Galeri Foto --}}
                 @if($kegiatan->foto->count() > 0)
                 <div class="card card-modern">
                     <div class="card-header bg-light">
@@ -55,7 +61,10 @@
                             @foreach($kegiatan->foto as $foto)
                             <div class="col-md-4 col-sm-6">
                                 <a href="{{ asset('storage/' . $foto->foto) }}" target="_blank">
-                                    <img src="{{ asset('storage/' . $foto->foto) }}" class="img-fluid rounded" alt="Dokumentasi" style="width: 100%; height: 200px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $foto->foto) }}" 
+                                         class="img-fluid rounded" 
+                                         alt="{{ generateAltText($kegiatan->nama_kegiatan, $foto->keterangan ?: 'Dokumentasi Kegiatan') }}" 
+                                         style="width: 100%; height: 200px; object-fit: cover;">
                                 </a>
                                 @if($foto->keterangan)
                                 <p class="text-muted mt-2"><small>{{ $foto->keterangan }}</small></p>
@@ -69,7 +78,7 @@
             </div>
 
             <div class="col-lg-4">
-                <!-- Panitia/Anggota -->
+                {{-- Panitia/Anggota --}}
                 @if($kegiatan->anggota->count() > 0)
                 <div class="card card-modern mb-4">
                     <div class="card-header bg-light">
@@ -79,7 +88,7 @@
                         @foreach($kegiatan->anggota as $anggota)
                         <div class="d-flex align-items-center mb-3">
                             @if($anggota->foto)
-                            <img src="{{ asset('storage/' . $anggota->foto) }}" class="rounded-circle me-3" width="50" height="50" style="object-fit: cover;">
+                            <img src="{{ asset('storage/' . $anggota->foto) }}" class="rounded-circle me-3" width="50" height="50" style="object-fit: cover;" alt="{{ $anggota->nama }}">
                             @else
                             <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
                                 <i class="bi bi-person text-white"></i>
@@ -95,18 +104,18 @@
                 </div>
                 @endif
 
-                <!-- Share -->
+                {{-- Share --}}
                 <div class="card card-modern">
                     <div class="card-body text-center">
                         <h6>Bagikan Kegiatan</h6>
                         <div class="d-flex justify-content-center gap-2 mt-3">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="btn btn-primary btn-sm">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('public.kegiatan.detail', $kegiatan->slug)) }}" target="_blank" class="btn btn-primary btn-sm">
                                 <i class="bi bi-facebook"></i>
                             </a>
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($kegiatan->nama_kegiatan) }}" target="_blank" class="btn btn-info btn-sm">
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('public.kegiatan.detail', $kegiatan->slug)) }}&text={{ urlencode($kegiatan->nama_kegiatan) }}" target="_blank" class="btn btn-info btn-sm">
                                 <i class="bi bi-twitter"></i>
                             </a>
-                            <a href="https://wa.me/?text={{ urlencode($kegiatan->nama_kegiatan . ' - ' . url()->current()) }}" target="_blank" class="btn btn-success btn-sm">
+                            <a href="https://wa.me/?text={{ urlencode($kegiatan->nama_kegiatan . ' - ' . route('public.kegiatan.detail', $kegiatan->slug)) }}" target="_blank" class="btn btn-success btn-sm">
                                 <i class="bi bi-whatsapp"></i>
                             </a>
                         </div>

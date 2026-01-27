@@ -40,3 +40,18 @@ if (!function_exists('statusBadge')) {
         return "<span class='badge bg-{$class}'>{$status}</span>";
     }
 }
+
+if (!function_exists('generateAltText')) {
+    /**
+     * Generate SEO-friendly alt text for images
+     */
+    function generateAltText($title, $context = '')
+    {
+        $baseAlt = trim($title);
+        if ($context) {
+            $baseAlt .= ' - ' . trim($context);
+        }
+        $baseAlt .= ' | Masjid Merah Baiturrahman';
+        return $baseAlt;
+    }
+}

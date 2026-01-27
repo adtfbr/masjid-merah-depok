@@ -14,6 +14,7 @@ class Kegiatan extends Model
     protected $fillable = [
         'bidang_id',
         'nama_kegiatan',
+        'slug',
         'deskripsi',
         'tanggal_mulai',
         'tanggal_selesai',
@@ -24,6 +25,33 @@ class Kegiatan extends Model
         'tanggal_mulai' => 'date',
         'tanggal_selesai' => 'date',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($kegiatan) {
+            if (empty($kegiatan->slug)) {
+                $kegiatan->slug = static::generateSlug($kegiatan->nama_kegiatan);
+            }
+        });
+
+        static::updating(function ($kegiatan) {
+            if ($kegiatan->isDirty('nama_kegiatan')) {
+                $kegiatan->slug = static::generateSlug($kegiatan->nama_kegiatan, $kegiatan->id);
+            }
+        });
+    }
+
+    protected static function generateSlug($name, $id = null)
+    {
+        $slug = \Illuminate\Support\Str::slug($name);
+        $count = static::where('slug', 'like', "{$slug}%")
+            ->when($id, fn($q) => $q->where('id', '!=', $id))
+            ->count();
+        
+        return $count ? "{$slug}-" . ($count + 1) : $slug;
+    }
 
     /**
      * Relasi ke Bidang
@@ -82,5 +110,25 @@ class Kegiatan extends Model
         } else {
             return 'Selesai';
         }
+    }
+
+    /**
+     * Get meta description for SEO
+     */
+    public function getMetaDescriptionAttribute()
+    {
+        $desc = strip_tags($this->deskripsi);
+        return \Illuminate\Support\Str::limit($desc, 155);
+    }
+
+    /**
+     * Get OG Image
+     */
+    public function getOgImageAttribute()
+    {
+        if ($this->foto->count() > 0) {
+            return asset('storage/' . $this->foto->first()->foto);
+        }
+        return asset('images/hero-masjid.jpg');
     }
 }

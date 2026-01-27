@@ -13,8 +13,36 @@ class Bidang extends Model
 
     protected $fillable = [
         'nama_bidang',
+        'slug',
         'deskripsi',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($bidang) {
+            if (empty($bidang->slug)) {
+                $bidang->slug = static::generateSlug($bidang->nama_bidang);
+            }
+        });
+
+        static::updating(function ($bidang) {
+            if ($bidang->isDirty('nama_bidang')) {
+                $bidang->slug = static::generateSlug($bidang->nama_bidang, $bidang->id);
+            }
+        });
+    }
+
+    protected static function generateSlug($name, $id = null)
+    {
+        $slug = \Illuminate\Support\Str::slug($name);
+        $count = static::where('slug', 'like', "{$slug}%")
+            ->when($id, fn($q) => $q->where('id', '!=', $id))
+            ->count();
+        
+        return $count ? "{$slug}-" . ($count + 1) : $slug;
+    }
 
     /**
      * Relasi ke AnggotaBidang
@@ -70,5 +98,14 @@ class Bidang extends Model
     public function getJumlahKegiatanAttribute()
     {
         return $this->kegiatan()->count();
+    }
+
+    /**
+     * Get meta description for SEO
+     */
+    public function getMetaDescriptionAttribute()
+    {
+        $desc = strip_tags($this->deskripsi);
+        return \Illuminate\Support\Str::limit($desc ?: "Informasi lengkap tentang {$this->nama_bidang} Masjid Merah Baiturrahman", 155);
     }
 }

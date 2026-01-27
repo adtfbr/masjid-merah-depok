@@ -39,7 +39,7 @@ Route::prefix('manajemen')->group(function() {
 });
 
 // Bidang Routes (Dynamic)
-Route::get('/bidang/{id}', [PublicController::class, 'showBidang'])->name('public.bidang.show');
+Route::get('/bidang/{bidang:slug}', [PublicController::class, 'showBidang'])->name('public.bidang.show');
 
 // Program Kerja Routes
 Route::prefix('program-kerja')->group(function() {
@@ -54,7 +54,7 @@ Route::get('/kontak', [PublicController::class, 'kontak'])->name('public.kontak'
 // Old routes for backward compatibility (will redirect)
 Route::get('/organisasi', [PublicController::class, 'organisasi'])->name('public.organisasi');
 Route::get('/kegiatan-masjid', [PublicController::class, 'kegiatan'])->name('public.kegiatan');
-Route::get('/kegiatan-masjid/{id}', [PublicController::class, 'kegiatanDetail'])->name('public.kegiatan.detail');
+Route::get('/kegiatan-masjid/{kegiatan:slug}', [PublicController::class, 'kegiatanDetail'])->name('public.kegiatan.detail');
 Route::get('/aset', [PublicController::class, 'aset'])->name('public.aset');
 Route::get('/aset/kategori/{id}', [PublicController::class, 'asetKategori'])->name('public.aset.kategori');
 

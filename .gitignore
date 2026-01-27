@@ -1,8 +1,10 @@
 *.log
 .DS_Store
 .env
+.env.*
 .env.backup
 .env.production
+.env.local
 .phpactor.json
 .phpunit.result.cache
 /.fleet
@@ -21,4 +23,25 @@
 /vendor
 Homestead.json
 Homestead.yaml
+Thumbs.db
+npm-debug.log
+yarn-error.log
+
+# Database files
+*.sql
+*.sqlite
+*.db
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db

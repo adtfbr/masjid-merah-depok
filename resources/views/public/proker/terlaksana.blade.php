@@ -71,7 +71,7 @@
                                             <i class="bi bi-geo-alt"></i> {{ $kegiatan->lokasi }}
                                         </small>
                                     @endif
-                                    <a href="{{ route('public.kegiatan.detail', $kegiatan->id) }}" 
+                                    <a href="{{ route('public.kegiatan.detail', $kegiatan) }}" 
                                        class="btn btn-primary-custom btn-sm w-100">
                                         <i class="bi bi-eye"></i> Lihat Detail
                                     </a>

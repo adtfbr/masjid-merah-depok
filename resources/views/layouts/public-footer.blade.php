@@ -14,7 +14,7 @@
                 <h5>Menu</h5>
                 <ul class="list-unstyled">
                     <li class="mb-2"><a href="{{ route('home') }}">Beranda</a></li>
-                    <li class="mb-2"><a href="{{ route('public.organisasi') }}">Struktur Organisasi</a></li>
+                    <li class="mb-2"><a href="{{ route('public.profile.struktur') }}">Struktur Kepengurusan</a></li>
                     <li class="mb-2"><a href="{{ route('public.kegiatan') }}">Kegiatan</a></li>
                     <li class="mb-2"><a href="{{ route('public.keuangan') }}">Transparansi Keuangan</a></li>
                     <li class="mb-2"><a href="{{ route('public.aset') }}">Aset Masjid</a></li>

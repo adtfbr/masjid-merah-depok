@@ -1,2 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /api/
+Allow: /
+
+Sitemap: https://yourdomain.com/sitemap.xml

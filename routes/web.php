@@ -64,10 +64,11 @@ Route::get('/aset/kategori/{id}', [PublicController::class, 'asetKategori'])->na
 |--------------------------------------------------------------------------
 */
 
-// Guest Routes (Login)
+// Guest Routes (Login) - With Rate Limiting
 Route::middleware('guest')->group(function () {
     Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/admin/login', [AuthController::class, 'login']);
+    Route::post('/admin/login', [AuthController::class, 'login'])
+        ->middleware('throttle:5,1'); // Max 5 attempts per minute
 });
 
 // Authenticated Routes (Admin Panel)

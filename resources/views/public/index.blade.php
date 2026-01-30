@@ -7,8 +7,8 @@
 <section class="hero-section">
     <div class="container">
         <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid Merah Baiturrahman" class="hero-logo">
-        <h1>Masjid Merah Baiturrahman</h1>
-        <div class="hero-subtitle" style="font-size: 48px; font-family: 'Gotham', sans-serif;">Sistem Informasi Manajemen</div>
+        <h1>Sistem Informasi Manajemen</h1>
+        <div class="hero-subtitle" style="font-size: 48px; font-family: 'Gotham', sans-serif;">Masjid Merah Baiturrahman</div>
         <p>"Menjadi yayasan Islam profesional dan terpercaya yang melayani umat di bidang keagamaan dan sosial, dengan fokus pada pembentukan Sumber Daya Manusia (SDM) yang berakhlak mulia"</p>
         <div class="mt-4">
             <a href="{{ route('public.kegiatan') }}" class="btn btn-light btn-lg me-2">

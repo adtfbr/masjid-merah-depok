@@ -88,12 +88,16 @@
                         @foreach($kegiatan->anggota as $anggota)
                         <div class="d-flex align-items-center mb-3">
                             @if($anggota->foto)
-                            <img src="{{ asset('storage/' . $anggota->foto) }}" class="rounded-circle me-3" width="50" height="50" style="object-fit: cover;" alt="{{ $anggota->nama }}">
-                            @else
-                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                                <i class="bi bi-person text-white"></i>
-                            </div>
-                            @endif
+                                <div class="avatar-circle me-3">
+                                    <img src="{{ asset('storage/' . $anggota->foto) }}"
+                                         alt="{{ $anggota->nama }}">
+                                </div>
+                                @else
+                                <div class="avatar-circle bg-secondary me-3 d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-person text-white"></i>
+                                </div>
+                                @endif
+
                             <div>
                                 <h6 class="mb-0">{{ $anggota->nama }}</h6>
                                 <small class="text-muted">{{ $anggota->jabatan }}</small>

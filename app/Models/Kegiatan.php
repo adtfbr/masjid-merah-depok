@@ -20,6 +20,11 @@ class Kegiatan extends Model
         'tanggal_selesai',
         'lokasi',
     ];
+    
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     protected $casts = [
         'tanggal_mulai' => 'date',

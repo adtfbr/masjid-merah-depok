@@ -38,7 +38,7 @@
                                 <i class="bi bi-geo-alt"></i> {{ $kegiatan->lokasi }}
                             </small>
                         </p>
-                        <a href="{{ route('public.kegiatan.detail', $kegiatan->id) }}" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ route('public.kegiatan.detail', $kegiatan->slug) }}" class="btn btn-outline-primary btn-sm">
                             <i class="bi bi-eye"></i> Lihat Detail
                         </a>
                     </div>

@@ -36,13 +36,24 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('public.bidang.*') ? 'active' : '' }}" href="#" id="navbarBidang" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('public.bidang.*') ? 'active' : '' }}"
+                    href="#"
+                    id="navbarBidang"
+                    role="button"
+                    data-bs-toggle="dropdown">
                         Manajemen Bidang
                     </a>
                     <ul class="dropdown-menu">
                         @if(isset($navbarBidangs) && $navbarBidangs->count() > 0)
                             @foreach($navbarBidangs as $bidang)
-                                <li><a class="dropdown-item" href="{{ route('public.bidang.show', $bidang->slug) }}">{{ $bidang->nama_bidang }}</a></li>
+                                @if($bidang->nama_bidang !== 'Dewan Pengurus Harian')
+                                    <li>
+                                        <a class="dropdown-item"
+                                        href="{{ route('public.bidang.show', $bidang->slug) }}">
+                                            {{ $bidang->nama_bidang }}
+                                        </a>
+                                    </li>
+                                @endif
                             @endforeach
                         @else
                             <li><a class="dropdown-item" href="#">Tidak ada bidang</a></li>

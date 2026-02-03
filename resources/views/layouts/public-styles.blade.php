@@ -197,7 +197,7 @@
         /* Hero Section */
         .hero-section {
             position: relative;
-            min-height: 100vh;
+            min-height: 112.5vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -239,8 +239,8 @@
         }
 
         .hero-logo {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             margin-bottom: 30px;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
             object-fit: contain;
@@ -540,7 +540,7 @@
             font-size: 1.25rem;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
         }
-        
+
         .avatar-circle {
             width: 50px;
             height: 50px;
@@ -548,7 +548,7 @@
             overflow: hidden;
             flex-shrink: 0;
         }
-        
+
         .avatar-circle img {
             width: 100%;
             height: 100%;

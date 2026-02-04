@@ -110,12 +110,12 @@
         }
 
         .navbar-brand {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             color: white !important;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
             white-space: nowrap;
             transition: color 0.3s;
         }
@@ -197,13 +197,13 @@
         /* Hero Section */
         .hero-section {
             position: relative;
-            min-height: 112.5vh;
+            min-height: 110.5vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
-            margin-top: -90px;
+            margin-top: -60px;
             padding-top: 90px;
             overflow: hidden;
         }
@@ -248,7 +248,7 @@
 
         .hero-section h1 {
             font-family: 'Gotham', 'Montserrat', 'Arial Black', sans-serif;
-            font-size: 70px;
+            font-size: 50px;
             font-weight: 700;
             margin-bottom: 0.5rem;
             text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
@@ -259,7 +259,7 @@
 
         .hero-section .hero-subtitle {
             font-family: 'Gotham', 'Montserrat', 'Arial Black', sans-serif;
-            font-size: 70px;
+            font-size: 50px;
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-shadow: 3px 3px 12px rgba(0,0,0,0.6);
@@ -269,7 +269,7 @@
         }
 
         .hero-section p {
-            font-size: 1.5rem;
+            font-size: 1rem;
             opacity: 0.95;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
             max-width: 800px;
@@ -282,6 +282,13 @@
             font-weight: 500;
             margin-bottom: 0.5rem;
         }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
 
         /* Section */
         .section {
@@ -563,7 +570,7 @@
             }
 
             .cta-section h2 {
-                font-size: 1.75rem;
+                font-size: 1rem;
             }
 
             .cta-section .lead {
@@ -571,25 +578,25 @@
             }
 
             .hero-logo {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
             }
 
             .hero-section h1,
             .hero-section .hero-subtitle {
-                font-size: 32px;
+                font-size: 24px;
             }
 
             .hero-section .lead {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .hero-section p {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
 
             .section-title h2 {
-                font-size: 1.75rem;
+                font-size: 1rem;
             }
 
             /* Fix Navbar Mobile Transparency */
@@ -662,41 +669,160 @@
             }
         }
 
-        @media (max-width: 576px) {
-            .navbar-brand {
-                font-size: 0.75rem;
-                gap: 6px;
-            }
+        @media (max-width: 767px) {
 
-            .navbar-brand img {
-                height: 30px;
-            }
-
-            .navbar-public.scrolled .navbar-brand img {
-                height: 25px;
-            }
-
-            .navbar-brand span {
-                max-width: 160px;
-                word-break: break-word;
-            }
-
-            .footer h5 {
-                font-size: 0.85rem;
-            }
-
-            .footer h5 img {
-                height: 25px;
-            }
+         /* CTA */
+        .cta-section {
+            padding: 60px 0;
         }
 
-        @media (max-width: 400px) {
-            .navbar-brand {
-                font-size: 0.7rem;
-            }
-
-            .navbar-brand span {
-                max-width: 140px;
-            }
+        .cta-section h2 {
+            font-size: 1.5rem;
         }
+
+        .cta-section .lead {
+            font-size: 1rem;
+        }
+
+        /* Hero */
+        .hero-logo {
+            width: 100px;
+            height: 100px;
+        }
+
+        .hero-section h1 {
+            font-size: 28px;
+            line-height: 1.2;
+        }
+
+        .hero-section .hero-subtitle {
+            font-size: 34px;
+            line-height: 1.2;
+        }
+
+        .hero-section .lead {
+            font-size: 1.1rem;
+        }
+
+        .hero-section p {
+            font-size: 0.9rem;
+        }
+
+        /* Section */
+        .section-title h2 {
+            font-size: 1.6rem;
+        }
+
+        /* Navbar Mobile */
+        .navbar-public {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.75rem 0;
+        }
+
+        .navbar-collapse {
+            background: #fff;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 0.85rem;
+            gap: 8px;
+            color: var(--primary) !important;
+        }
+
+        .navbar-brand img {
+            height: 32px;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--dark) !important;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 0 15px;
+        }
+
+        .footer h5 {
+            font-size: 0.9rem;
+        }
+
+        .footer p,
+        .footer li {
+            font-size: 0.85rem;
+        }
+    }
+
+    @media (max-width: 575px) {
+
+        .hero-section h1 {
+            font-size: 26px;
+        }
+
+        .hero-section .hero-subtitle {
+            font-size: 30px;
+        }
+
+        .navbar-brand {
+            font-size: 0.8rem;
+            gap: 6px;
+        }
+
+        .navbar-brand img {
+            height: 28px;
+        }
+
+        .navbar-brand span {
+            max-width: 160px;
+            word-break: break-word;
+        }
+
+        .btn-primary-custom {
+            padding: 10px 22px;
+            font-size: 0.9rem;
+        }
+        .hero-buttons {
+            flex-direction: column;
+            gap: 20px; /* jarak diperlebar */
+            align-items: center;
+        }
+
+        .hero-buttons .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+    }
+
+    @media (max-width: 360px) {
+
+        .hero-section h1 {
+            font-size: 28px;
+        }
+
+        .hero-section .hero-subtitle {
+            font-size: 28px;
+        }
+
+        .hero-section p {
+            font-size: 0.85rem;
+        }
+
+        .navbar-brand {
+            font-size: 0.75rem;
+        }
+
+        .navbar-brand span {
+            max-width: 140px;
+        }
+
+        .bagan-card {
+            width: 100%;
+        }
+    }
+
+
     </style>

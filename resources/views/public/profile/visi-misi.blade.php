@@ -29,14 +29,14 @@
                             <li class="mb-3">
                                 <strong>Mewujudkan masjid sebagai pusat kegiatan keagamaan, pendidikan, dan pemberdayaan masyarakat</strong>
                                 <p class="text-muted mt-2" style="text-align: justify;">
-                                    Masjid tidak hanya berfungsi sebagai tempat ibadah, tetapi juga sebagai pusat pembelajaran 
+                                    Masjid tidak hanya berfungsi sebagai tempat ibadah, tetapi juga sebagai pusat pembelajaran
                                     agama Islam yang komprehensif dan pemberdayaan ekonomi serta sosial bagi seluruh jamaah.
                                 </p>
                             </li>
                             <li class="mb-3">
                                 <strong>Membangun umat yang beriman, bertakwa, dan berakhlak mulia</strong>
                                 <p class="text-muted mt-2" style="text-align: justify;">
-                                    Melalui berbagai program dan kegiatan, kami bertujuan membentuk karakter jamaah yang kuat 
+                                    Melalui berbagai program dan kegiatan, kami bertujuan membentuk karakter jamaah yang kuat
                                     dalam keimanan, taat dalam beribadah, dan mulia dalam berperilaku sesuai ajaran Islam.
                                 </p>
                             </li>
@@ -54,14 +54,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             1
                                         </div>
                                         <h5 class="mb-0">Meningkatkan Kualitas Ibadah</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Menyelenggarakan sholat berjamaah 5 waktu dan Jumat secara rutin dengan khusyuk, 
+                                        Menyelenggarakan sholat berjamaah 5 waktu dan Jumat secara rutin dengan khusyuk,
                                         serta mengadakan kajian dan pengajian berkala untuk meningkatkan pemahaman agama jamaah.
                                     </p>
                                 </div>
@@ -70,14 +69,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             2
                                         </div>
                                         <h5 class="mb-0">Mengembangkan Pendidikan Islam</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Mengelola TPA/TPQ yang berkualitas, menyelenggarakan program tahfidz Al-Quran, 
+                                        Mengelola TPA/TPQ yang berkualitas, menyelenggarakan program tahfidz Al-Quran,
                                         dan memberikan pendidikan agama untuk semua kalangan usia.
                                     </p>
                                 </div>
@@ -86,14 +84,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             3
                                         </div>
                                         <h5 class="mb-0">Memberdayakan Ekonomi Umat</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Mengembangkan unit usaha produktif masjid dan memberikan pelatihan kewirausahaan 
+                                        Mengembangkan unit usaha produktif masjid dan memberikan pelatihan kewirausahaan
                                         untuk meningkatkan kesejahteraan ekonomi jamaah.
                                     </p>
                                 </div>
@@ -102,14 +99,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             4
                                         </div>
                                         <h5 class="mb-0">Peduli Sosial Kemasyarakatan</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Melaksanakan program santunan rutin untuk anak yatim dan dhuafa, serta 
+                                        Melaksanakan program santunan rutin untuk anak yatim dan dhuafa, serta
                                         menyelenggarakan kegiatan bakti sosial untuk membantu masyarakat yang membutuhkan.
                                     </p>
                                 </div>
@@ -118,14 +114,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             5
                                         </div>
                                         <h5 class="mb-0">Mengelola Aset Secara Profesional</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Merawat dan mengembangkan aset masjid dengan sistem manajemen yang baik, 
+                                        Merawat dan mengembangkan aset masjid dengan sistem manajemen yang baik,
                                         transparan, dan akuntabel untuk keberlanjutan masjid.
                                     </p>
                                 </div>
@@ -134,14 +129,13 @@
                             <div class="col-md-6 mb-4">
                                 <div class="misi-card h-100 p-4 border-start border-primary border-4">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; font-weight: bold; font-size: 1.5rem;">
+                                        <div class="rounded-circle misi-number bg-primary text-white d-flex align-items-center justify-content-center me-3">
                                             6
                                         </div>
                                         <h5 class="mb-0">Mewujudkan Transparansi & Akuntabilitas</h5>
                                     </div>
                                     <p class="mb-0" style="text-align: justify;">
-                                        Menerapkan sistem manajemen modern dengan pelaporan keuangan yang terbuka, 
+                                        Menerapkan sistem manajemen modern dengan pelaporan keuangan yang terbuka,
                                         program kerja yang terukur, dan melibatkan partisipasi aktif jamaah.
                                     </p>
                                 </div>
@@ -154,27 +148,4 @@
     </div>
 </div>
 
-@push('styles')
-<style>
-    .vision-list {
-        font-size: 1.1rem;
-        padding-left: 1.5rem;
-    }
-    
-    .vision-list li {
-        margin-bottom: 1.5rem;
-    }
-    
-    .misi-card {
-        background: #f8f9fa;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-    
-    .misi-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-</style>
-@endpush
 @endsection

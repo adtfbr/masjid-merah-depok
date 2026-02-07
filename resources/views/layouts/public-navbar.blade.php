@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-public" id="mainNavbar">
+<nav class="navbar navbar-expand-xl navbar-public" id="mainNavbar">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/logo-masjid.png') }}" alt="Logo Masjid">

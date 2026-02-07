@@ -497,6 +497,38 @@
             border-color: var(--secondary) !important;
         }
 
+        .vision-list {
+            font-size: 1.1rem;
+            padding-left: 1.5rem;
+        }
+
+        .vision-list li {
+            margin-bottom: 1.5rem;
+        }
+
+        .misi-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .misi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .misi-number {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;   /* PENTING */
+            min-height: 48px;  /* PENTING */
+            font-size: 1.4rem;
+            font-weight: bold;
+            line-height: 1;
+            flex-shrink: 0;    /* PENTING */
+        }
+
+
         /* CTA Section with Background */
         .cta-section {
             position: relative;
@@ -755,6 +787,42 @@
         .footer li {
             font-size: 0.85rem;
         }
+         /* Transfer Bank: ubah jadi vertical */
+        .transfer-bank-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 16px;
+        }
+
+        /* Logo BSN */
+        .transfer-bank-content img {
+            height: 140px !important;
+            max-width: 100%;
+        }
+        .logo-bsn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Nomor Rekening */
+        .transfer-bank-content h3 {
+            font-size: 1.2rem !important;
+            letter-spacing: 1.5px !important;
+            margin-bottom: 8px;
+        }
+
+        /* Nama Yayasan */
+        .transfer-bank-content h6 {
+            font-size: 0.85rem !important;
+            line-height: 1.3;
+        }
+
+        /* Tombol salin */
+        .transfer-bank-box button {
+            width: 100%;
+            max-width: 260px;
+        }
     }
 
     @media (max-width: 575px) {
@@ -795,6 +863,18 @@
             width: 100%;
             max-width: 280px;
         }
+        .misi-card .d-flex {
+            align-items: flex-start; /* bukan center */
+        }
+
+        .misi-number {
+            margin-top: 2px;
+        }
+
+        .misi-card h5 {
+            font-size: 1rem;
+            line-height: 1.3;
+        }
     }
 
     @media (max-width: 360px) {
@@ -821,6 +901,17 @@
 
         .bagan-card {
             width: 100%;
+        }
+        .transfer-bank-content img {
+            height: 120px !important;
+        }
+
+        .transfer-bank-content h3 {
+            font-size: 1.1rem !important;
+        }
+
+        .transfer-bank-content h6 {
+            font-size: 0.8rem !important;
         }
     }
 
